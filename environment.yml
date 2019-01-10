@@ -1,0 +1,15 @@
+# create a dev conda environment with: `make create_env` or `conda env create -f environment.yml`
+name: pyosim_aws
+channels:
+- defaults
+- pyomeca
+- conda-forge
+- kzts
+dependencies:
+- python
+- pyyaml
+- numpy
+- pandas
+- pyomeca
+- pyosim
+- pyoviz

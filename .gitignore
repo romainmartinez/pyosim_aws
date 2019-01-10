@@ -90,11 +90,11 @@ ENV/
 env.bak/
 venv.bak/
 
-# Spyder project settings
+# Spyder project_sample settings
 .spyderproject
 .spyproject
 
-# Rope project settings
+# Rope project_sample settings
 .ropeproject
 
 # mkdocs documentation
@@ -102,3 +102,5 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+.idea
