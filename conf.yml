@@ -1,11 +1,10 @@
 path:
-  project: "./project/"
-  sample: '../project_sample/'
+  project: "/home/romain/Downloads/irsst"
   data:
-    local: "/home/laboratoire/mnt/F/Data/Shoulder/RAW"
+    local: "/media/romain/F/Data/Shoulder/RAW"
     distant: "/home/ubuntu/data/RAW"
   mvc:
-    local: "/home/laboratoire/mnt/E/Projet_MVC/data/C3D_original_files/irsst_hf"
+    local: "/media/romain/E/Projet_MVC/data/C3D_original_files/irsst_hf"
     distant: "/home/ubuntu/data/mvc"
   calibration_matrix: "./project_sample/forces_calibration_matrix.csv"
 
