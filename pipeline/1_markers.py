@@ -7,7 +7,7 @@ import yaml
 import numpy as np
 from pyosim import Conf, Markers3dOsim
 
-aws_conf = yaml.safe_load(open("./conf.yml"))
+aws_conf = yaml.safe_load(open("../conf.yml"))
 local_or_distant = "distant" if aws_conf["distant_id"]["enable"] else "local"
 
 conf = Conf(project_path=aws_conf["path"]["project"][local_or_distant])
