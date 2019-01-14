@@ -34,6 +34,14 @@ create_env:
 	conda env create -n $(REPO_NAME) -f environment.yml
 	rm -rf *.egg-info
 
+## Update project
+update_project:
+	$(call execute_in_env, python pipeline/0_project.py)
+
+## Update project
+export_markers:
+	$(call execute_in_env, python pipeline/1_markers.py)
+
 #################################################################################
 # Self Documenting Commands                                                     #
 #################################################################################

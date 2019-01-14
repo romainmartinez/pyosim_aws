@@ -1,5 +1,7 @@
 path:
-  project: "/home/romain/Downloads/irsst"
+  project:
+    local: "/home/romain/Downloads/irsst"
+    distant: 'home/ubuntu/project'
   data:
     local: "/media/romain/F/Data/Shoulder/RAW"
     distant: "/home/ubuntu/data/RAW"
