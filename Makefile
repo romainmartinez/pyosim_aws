@@ -1,4 +1,4 @@
-.PHONY: create_env
+.PHONY: create_env update_project export_emg
 
 #################################################################################
 # GLOBALS                                                                       #
@@ -38,9 +38,17 @@ create_env:
 update_project:
 	$(call execute_in_env, python pipeline/0_project.py)
 
-## Update project
+## Export markers
 export_markers:
 	$(call execute_in_env, python pipeline/1_markers.py)
+
+## Export EMGs
+export_emg:
+	$(call execute_in_env, python pipeline/2_emg.py)
+
+## Export forces
+export_emg:
+	$(call execute_in_env, python pipeline/3_forces.py)
 
 #################################################################################
 # Self Documenting Commands                                                     #

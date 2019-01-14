@@ -26,8 +26,8 @@ params = {
     ),
 }
 
-for iparticipant in participants:
-    print(f"\nparticipant: {iparticipant}")
+for i, iparticipant in enumerate([participants[13]]):
+    print(f"\nparticipant #{i}: {iparticipant}")
     directories = conf.get_conf_field(
         participant=iparticipant, field=["analogs", "data"]
     )
@@ -128,10 +128,12 @@ for iparticipant in participants:
         for (inf, sup) in idx:
             ax.axvline(x=inf, color="g", lw=2, ls="--")
             ax.axvline(x=sup, color="r", lw=2, ls="--")
-        # plt.show()
+        plt.show()
 
         forces.get_labels = params["forces_labels"]
-        sto_filename = f"{PROJECT_PATH / iparticipant / '0_forces' / itrial.stem}.sto"
+        sto_filename = (
+            f"{conf.project_path  / iparticipant / '0_forces' / itrial.stem}.sto"
+        )
 
         forces.to_sto(filename=sto_filename)
 
