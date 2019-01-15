@@ -1,5 +1,5 @@
 """
-Example: export forces to sto
+Export forces to sto
 """
 
 from pathlib import Path

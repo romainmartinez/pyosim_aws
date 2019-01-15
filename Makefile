@@ -1,4 +1,4 @@
-.PHONY: create_env update_project export_emg
+.PHONY: create_env update_project export_emg scale distant_pipeline
 
 #################################################################################
 # GLOBALS                                                                       #
@@ -49,6 +49,15 @@ export_emg:
 ## Export forces
 export_emg:
 	$(call execute_in_env, python pipeline/3_forces.py)
+
+## Models scaling
+scale:
+	$(call execute_in_env, python pipeline/4_scaling.py)
+
+distant_pipeline:
+	$(call execute_in_env, python pipeline/4_scaling.py)
+	$(call execute_in_env, python pipeline/4_scaling.py)
+
 
 #################################################################################
 # Self Documenting Commands                                                     #

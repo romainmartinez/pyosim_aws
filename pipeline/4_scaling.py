@@ -1,49 +1,43 @@
 """
-Example: export models
+Scaling
 """
 
-from pathlib import Path
-
+import yaml
 from pyosim import Conf
 from pyosim import Scale
-from project_conf import PROJECT_PATH, WU_MASS_FACTOR, MODELS_PATH, TEMPLATES_PATH
 
-# path
+aws_conf = yaml.safe_load(open("./conf.yml"))
+local_or_distant = "distant" if aws_conf["distant_id"]["enable"] else "local"
 
-
-model_names = ['wu']  #, 'das']
-
-conf = Conf(project_path=PROJECT_PATH)
-conf.check_confs()
-
+conf = Conf(project_path=aws_conf["path"]["project"][local_or_distant])
 participants = conf.get_participants_to_process()
 
-for iparticipant in participants:
-    print(f'\nparticipant: {iparticipant}')
-    pseudo_in_path = iparticipant[0].upper() + iparticipant[1:-1] + iparticipant[-1].upper()
-    static_path = f"{PROJECT_PATH / iparticipant / '0_markers' / 'IRSST_'}{pseudo_in_path}d0.trc"
-    mass = conf.get_conf_field(iparticipant, ['mass'])
-    height = conf.get_conf_field(iparticipant, ['height'])
+model_names = ["wu"]
+WU_MASS_FACTOR = 24.385 / 68.2
+
+for i, iparticipant in enumerate(participants):
+    print(f"\nparticipant #{i}: {iparticipant}")
+    pseudo_in_path = (
+        iparticipant[0].upper() + iparticipant[1:-1] + iparticipant[-1].upper()
+    )
+    static_path = f"{conf.project_path / iparticipant / '0_markers' / 'IRSST_'}{pseudo_in_path}d0.trc"
+    mass = conf.get_conf_field(iparticipant, ["mass"])
+    height = conf.get_conf_field(iparticipant, ["height"])
 
     for imodel in model_names:
-        if imodel == 'wu':
+        if imodel[:2] == "wu":
             # mass of the upper limb + torso
             mass = mass * WU_MASS_FACTOR
             # TODO: mass scaling should be verified
 
         path_kwargs = {
-            'model_input': f'{MODELS_PATH / imodel}.osim',
-            'model_output': f"{PROJECT_PATH / iparticipant / '_models' / imodel}_scaled.osim",
-            'xml_input': f'{TEMPLATES_PATH / imodel}_scaling.xml',
-            'xml_output': f"{PROJECT_PATH / iparticipant / '_xml' / imodel}_scaled.xml",
-            'static_path': static_path,
-            'model_add': f"{MODELS_PATH}/box.osim"
+            "model_input": f"{conf.project_path / '_models' / imodel}.osim",
+            "model_output": f"{conf.project_path / iparticipant / '_models' / imodel}_scaled.osim",
+            "xml_input": f"{conf.project_path / '_templates' / imodel}_scaling.xml",
+            "xml_output": f"{conf.project_path / iparticipant / '_xml' / imodel}_scaled.xml",
+            "static_path": static_path,
+            "add_model": f"{conf.project_path / '_models' / 'box.osim'}",
         }
 
-        Scale(
-            **path_kwargs,
-            mass=mass,
-            height=height * 10,
-            remove_unused=False
-        )
+        Scale(**path_kwargs, mass=mass, height=height * 10, remove_unused=False)
         # TODO: get total squared error + marker error + max
