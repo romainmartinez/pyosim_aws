@@ -1,4 +1,4 @@
-.PHONY: create_env update_project export_emg scale distant_pipeline
+.PHONY: create_env update_project export_emg export_markers escale distant_pipeline
 
 #################################################################################
 # GLOBALS                                                                       #
@@ -47,17 +47,26 @@ export_emg:
 	$(call execute_in_env, python pipeline/2_emg.py)
 
 ## Export forces
-export_emg:
+export_forces:
 	$(call execute_in_env, python pipeline/3_forces.py)
 
 ## Models scaling
 scale:
 	$(call execute_in_env, python pipeline/4_scaling.py)
 
-distant_pipeline:
-	$(call execute_in_env, python pipeline/4_scaling.py)
-	$(call execute_in_env, python pipeline/4_scaling.py)
+## Performs inverse kinematics
+scale:
+	$(call execute_in_env, python pipeline/5_inverse_kinematics.py)
 
+## Distant pipeline (scaling, IK, ID, SO, MA, JR)
+distant_pipeline:
+	$ make copy_local_to_distant
+	$(call execute_in_env, python pipeline/4_scaling.py)
+	$(call execute_in_env, python pipeline/5_inverse_kinematics.py)
+
+## Copy data local to distant
+copy_local_to_distant:
+	$(call execute_in_env, python pipeline/distant_functions.py -f copy_local_to_distant)
 
 #################################################################################
 # Self Documenting Commands                                                     #

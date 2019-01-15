@@ -1,41 +1,39 @@
 """
-Example: run inverse kinematic and export mot
+Inverse Kinematics
 """
-
-from pathlib import Path
-
+import yaml
 from pyosim import Conf
 from pyosim import InverseKinematics
-from project_conf import PROJECT_PATH, WU_MASS_FACTOR, MODELS_PATH, TEMPLATES_PATH
 
+aws_conf = yaml.safe_load(open("../conf.yml"))
+local_or_distant = "distant" if aws_conf["distant_id"]["enable"] else "local"
 
-model_names = ['wu']  #, 'das']
-offset = 0.05  # take 1 second before and after onsets
-
-conf = Conf(project_path=PROJECT_PATH)
-conf.check_confs()
-
+conf = Conf(project_path=aws_conf["path"]["project"][local_or_distant])
 participants = conf.get_participants_to_process()
 
-for iparticipant in participants:
-    print(f'\nparticipant: {iparticipant}')
+model_names = ["wu"]
+offset = 0.05  # take .5 second before and after onsets
 
-    trials = [ifile for ifile in (PROJECT_PATH / iparticipant / '0_markers').glob('*.trc')]
-    onsets = conf.get_conf_field(iparticipant, ['onset'])
-    onsets = {key: [values[0] - offset, values[1] + offset] for key, values in onsets.items()}
+for i, iparticipant in enumerate(participants):
+    print(f"\nparticipant #{i}: {iparticipant}")
+
+    trials = [
+        ifile
+        for ifile in (conf.project_path / iparticipant / "0_markers").glob("*.trc")
+    ]
+    onsets = conf.get_conf_field(iparticipant, ["onset"])
+    onsets = {
+        key: [values[0] - offset, values[1] + offset] for key, values in onsets.items()
+    }
 
     for imodel in model_names:
         path_kwargs = {
-            'model_input': f"{PROJECT_PATH / iparticipant / '_models' / imodel}_scaled_markers.osim",
-            'xml_input': f'{TEMPLATES_PATH / imodel}_ik.xml',
-            'xml_output': f"{PROJECT_PATH / iparticipant / '_xml' / imodel}_ik.xml",
-            'mot_output': f"{PROJECT_PATH / iparticipant / '1_inverse_kinematic'}",
+            "model_input": f"{conf.project_path / iparticipant / '_models' / imodel}_scaled_markers.osim",
+            "xml_input": f"{conf.project_path / '_templates' / imodel}_ik.xml",
+            "xml_output": f"{conf.project_path / iparticipant / '_xml' / imodel}_ik.xml",
+            "mot_output": f"{conf.project_path / iparticipant / '1_inverse_kinematic'}",
         }
 
         InverseKinematics(
-            **path_kwargs,
-            trc_files=trials,
-            onsets=onsets,
-            prefix=imodel,
-            multi=True
+            **path_kwargs, trc_files=trials, onsets=onsets, prefix=imodel, multi=True
         )

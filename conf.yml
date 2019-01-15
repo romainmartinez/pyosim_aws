@@ -1,20 +1,18 @@
 path:
   project:
-    local: "/home/romain/Downloads/irsst"
-    distant: 'home/ubuntu/project'
+    local: "~/Downloads/irsst"
+    distant: '~/project'
   data:
     local: "/media/romain/F/Data/Shoulder/RAW"
-    distant: "/home/ubuntu/data/RAW"
   mvc:
     local: "/media/romain/E/Projet_MVC/data/C3D_original_files/irsst_hf"
-    distant: "/home/ubuntu/data/mvc"
   calibration_matrix: "./project_sample/forces_calibration_matrix.csv"
 
 distant_id:
   enable: False
   debug: True
-  id: "ec2-34-212-104-202.us-west-2.compute.amazonaws.com"
-  pem: "~/.ssh/bimec29-kinesio.pem"
+  id: "ubuntu@ec2-18-224-72-109.us-east-2.compute.amazonaws.com"
+  pem: "~/Downloads/east-ohio-mrtnz.pem"
 
 assignment:
   emg: [
