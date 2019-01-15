@@ -59,10 +59,10 @@ inverse_kinematics:
 	$(call execute_in_env, python pipeline/5_inverse_kinematics.py)
 
 ## Distant pipeline (scaling, IK, ID, SO, MA, JR)
-distant_pipeline:
-	make copy_local_to_distant /
-	$(call execute_in_env, python pipeline/4_scaling.py) /
-	$(call execute_in_env, python pipeline/5_inverse_kinematics.py)
+#distant_pipeline:
+#	make copy_local_to_distant /
+#	$(call execute_in_env, python pipeline/4_scaling.py) /
+#	$(call execute_in_env, python pipeline/5_inverse_kinematics.py)
 
 ## Copy data local to distant
 copy_local_to_distant:
