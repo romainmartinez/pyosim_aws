@@ -1,6 +1,6 @@
 path:
   project:
-    local: "~/Downloads/irsst"
+    local: "/home/romain/Downloads/irsst"
     distant: '~/project'
   data:
     local: "/media/romain/F/Data/Shoulder/RAW"
