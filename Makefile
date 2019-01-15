@@ -34,39 +34,39 @@ create_env:
 	conda env create -n $(REPO_NAME) -f environment.yml
 	rm -rf *.egg-info
 
-## Update project
-update_project:
-	$(call execute_in_env, python pipeline/0_project.py)
-
-## Export markers
-export_markers:
-	$(call execute_in_env, python pipeline/1_markers.py)
-
-## Export EMGs
-export_emg:
-	$(call execute_in_env, python pipeline/2_emg.py)
-
-## Export forces
-export_forces:
-	$(call execute_in_env, python pipeline/3_forces.py)
-
-## Models scaling
-scale:
-	$(call execute_in_env, python pipeline/4_scaling.py)
-
-## Performs inverse kinematics
-inverse_kinematics:
-	$(call execute_in_env, python pipeline/5_inverse_kinematics.py)
-
-## Distant pipeline (scaling, IK, ID, SO, MA, JR)
+### Update project
+#update_project:
+#	$(call execute_in_env, python pipeline/0_project.py)
+#
+### Export markers
+#export_markers:
+#	$(call execute_in_env, python pipeline/1_markers.py)
+#
+### Export EMGs
+#export_emg:
+#	$(call execute_in_env, python pipeline/2_emg.py)
+#
+### Export forces
+#export_forces:
+#	$(call execute_in_env, python pipeline/3_forces.py)
+#
+### Models scaling
+#scale:
+#	$(call execute_in_env, python pipeline/4_scaling.py)
+#
+### Performs inverse kinematics
+#inverse_kinematics:
+#	$(call execute_in_env, python pipeline/5_inverse_kinematics.py)
+#
+### Distant pipeline (scaling, IK, ID, SO, MA, JR)
 #distant_pipeline:
 #	make copy_local_to_distant /
 #	$(call execute_in_env, python pipeline/4_scaling.py) /
 #	$(call execute_in_env, python pipeline/5_inverse_kinematics.py)
-
-## Copy data local to distant
-copy_local_to_distant:
-	$(call execute_in_env, python pipeline/distant_functions.py -f copy_local_to_distant)
+#
+### Copy data local to distant
+#copy_local_to_distant:
+#	$(call execute_in_env, python pipeline/distant_functions.py -f copy_local_to_distant)
 
 #################################################################################
 # Self Documenting Commands                                                     #
