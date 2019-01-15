@@ -9,6 +9,7 @@ dependencies:
 - python
 - pyyaml
 - numpy
+- lapack
 - pandas
 - pyomeca
 - pyosim
