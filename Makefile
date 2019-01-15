@@ -1,4 +1,4 @@
-.PHONY: create_env update_project export_emg export_markers escale distant_pipeline
+.PHONY: create_env update_project export_markers export_emg export_forces scale inverse_kinematics distant_pipeline copy_local_to_distant
 
 #################################################################################
 # GLOBALS                                                                       #
@@ -55,7 +55,7 @@ scale:
 	$(call execute_in_env, python pipeline/4_scaling.py)
 
 ## Performs inverse kinematics
-scale:
+inverse_kinematics:
 	$(call execute_in_env, python pipeline/5_inverse_kinematics.py)
 
 ## Distant pipeline (scaling, IK, ID, SO, MA, JR)
