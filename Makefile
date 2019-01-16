@@ -64,9 +64,13 @@ distant_pipeline:
 	$(call execute_in_env, python pipeline/4_scaling.py)
 	$(call execute_in_env, python pipeline/5_inverse_kinematics.py)
 
-## Copy data local to distant
+## Copy local data to distant computer
 copy_local_to_distant:
 	$(call execute_in_env, python pipeline/distant_functions.py -f copy_local_to_distant)
+
+## Copy distant data to local computer
+copy_distant_to_local:
+	$(call execute_in_env, python pipeline/distant_functions.py -f copy_distant_to_local)
 
 #################################################################################
 # Self Documenting Commands                                                     #

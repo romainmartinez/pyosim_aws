@@ -1,7 +1,7 @@
 path:
   project:
     local: "/home/romain/Downloads/irsst"
-    distant: '~/project'
+    distant: '/home/ubuntu/irsst'
   data:
     local: "/media/romain/F/Data/Shoulder/RAW"
   mvc:
@@ -10,7 +10,7 @@ path:
 
 distant_id:
   enable: False
-  id: "ubuntu@ec2-18-224-72-109.us-east-2.compute.amazonaws.com"
+  id: "ubuntu@ec2-18-223-149-223.us-east-2.compute.amazonaws.com"
   pem: "~/Downloads/east-ohio-mrtnz.pem"
 
 assignment:
