@@ -34,6 +34,11 @@ create_env:
 	conda env create -n $(REPO_NAME) -f environment.yml
 	rm -rf *.egg-info
 
+## Update notebooks (repo info, navigation bar, index)
+update_notebooks:
+	cd notebooks;\
+	$(call execute_in_env, python update_notebooks.py)
+
 ## Update project
 update_project:
 	$(call execute_in_env, python pipeline/0_project.py)

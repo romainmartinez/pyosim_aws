@@ -1,3 +1,14 @@
+repo_name: 'pyosim_aws'
+repo_info: >
+  <img style="float: right; width: 100px" src="https://raw.github.com/pyomeca/design/master/logo/logo_cropped.svg?sanitize=true">
+
+
+  # Pyosim in the cloud :cloud:
+
+  ## with [pyomeca](https://github.com/pyomeca/pyomeca)
+
+  Romain Martinez (martinez.staps@gmail.com | [GitHub](https://github.com/romainmartinez))
+
 path:
   project:
     local: "/home/romain/Downloads/irsst"
@@ -10,7 +21,7 @@ path:
 
 distant_id:
   enable: False
-  id: "ubuntu@ec2-18-223-149-223.us-east-2.compute.amazonaws.com"
+  id: "ubuntu@ec2-18-191-167-149.us-east-2.compute.amazonaws.com"
   pem: "~/Downloads/east-ohio-mrtnz.pem"
 
 assignment:

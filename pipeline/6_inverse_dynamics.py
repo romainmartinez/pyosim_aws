@@ -1,43 +1,43 @@
 """
-Example: run inverse dynamic and export sto
+Inverse dynamics
 """
 
-from pathlib import Path
-
+import yaml
 from pyosim import Conf
 from pyosim import InverseDynamics
-from project_conf import PROJECT_PATH, TEMPLATES_PATH
 
+aws_conf = yaml.safe_load(open("../conf.yml"))
+local_or_distant = "distant" if aws_conf["distant_id"]["enable"] else "local"
 
-model_names = ['wu']  #, 'das']
-
-conf = Conf(project_path=PROJECT_PATH)
+conf = Conf(project_path=aws_conf["path"]["project"][local_or_distant])
+participants = conf.get_participants_to_process()
 conf.check_confs()
 
-participants = conf.get_participants_to_process()
+model_names = ["wu"]
 
-for iparticipant in participants:
-    print(f'\nparticipant: {iparticipant}')
+for i, iparticipant in enumerate(["sarc"]):
+    print(f"\nparticipant: {iparticipant}")
 
     # ignore some trials
-    blacklist_suffix = '0'
-    trials = [ifile for ifile in (PROJECT_PATH / iparticipant / '1_inverse_kinematic').glob('*.mot') if
-              not ifile.stem.endswith(blacklist_suffix)]
+    blacklist_suffix = "0"
+    trials = [
+        ifile
+        for ifile in (conf.project_path / iparticipant / "1_inverse_kinematic").glob(
+            "*.mot"
+        )
+        if not ifile.stem.endswith(blacklist_suffix)
+    ]
 
     for imodel in model_names:
         path_kwargs = {
-            'model_input': f"{PROJECT_PATH / iparticipant / '_models' / imodel}_scaled_markers.osim",
-            'xml_input': f'{TEMPLATES_PATH / imodel}_id.xml',
-            'xml_output': f"{PROJECT_PATH / iparticipant / '_xml' / imodel}_id.xml",
-            'xml_forces': f'{TEMPLATES_PATH}/forces_sensor.xml',
-            'forces_dir': f"{PROJECT_PATH / iparticipant / '0_forces'}",
-            'sto_output': f"{(PROJECT_PATH / iparticipant / '2_inverse_dynamic').resolve()}",
+            "model_input": f"{conf.project_path / iparticipant / '_models' / imodel}_scaled_markers.osim",
+            "xml_input": f"{conf.project_path / '_templates' / imodel}_id.xml",
+            "xml_output": f"{conf.project_path / iparticipant / '_xml' / imodel}_id.xml",
+            "xml_forces": f"{conf.project_path / '_templates'}/forces_sensor.xml",
+            "forces_dir": f"{conf.project_path / iparticipant / '0_forces'}",
+            "sto_output": f"{(conf.project_path / iparticipant / '2_inverse_dynamic').resolve()}",
         }
 
         InverseDynamics(
-            **path_kwargs,
-            mot_files=trials,
-            prefix=imodel,
-            low_pass=10,
-            multi=True
+            **path_kwargs, mot_files=trials, prefix=imodel, low_pass=10, multi=True
         )
