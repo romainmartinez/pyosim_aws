@@ -10,6 +10,7 @@ local_or_distant = "distant" if aws_conf["distant_id"]["enable"] else "local"
 
 conf = Conf(project_path=aws_conf["path"]["project"][local_or_distant])
 participants = conf.get_participants_to_process()
+conf.check_confs()
 
 model_names = ["wu"]
 offset = 0.05  # take .5 second before and after onsets
