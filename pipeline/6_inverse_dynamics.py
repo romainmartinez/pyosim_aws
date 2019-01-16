@@ -15,7 +15,7 @@ conf.check_confs()
 
 model_names = ["wu"]
 
-for i, iparticipant in enumerate(["sarc"]):
+for i, iparticipant in enumerate(participants):
     print(f"\nparticipant: {iparticipant}")
 
     # ignore some trials
