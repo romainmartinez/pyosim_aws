@@ -1,4 +1,4 @@
-.PHONY: create_env
+.PHONY: create_env update_project export_markers export_emg export_forces scale inverse_kinematics distant_pipeline copy_local_to_distant
 
 #################################################################################
 # GLOBALS                                                                       #
@@ -17,7 +17,7 @@ endif
 ifeq ($(CONDA_DEFAULT_ENV),$(REPO_NAME))
     ACTIVATE_ENV := true
 else
-    ACTIVATE_ENV := source activate $(REPO_NAME)
+    ACTIVATE_ENV := conda activate $(REPO_NAME)
 endif
 
 # Execute python related functionalities from within the project_sample's environment
@@ -60,8 +60,8 @@ inverse_kinematics:
 
 ## Distant pipeline (scaling, IK, ID, SO, MA, JR)
 distant_pipeline:
-	make copy_local_to_distant /
-	$(call execute_in_env, python pipeline/4_scaling.py) /
+	make copy_local_to_distant
+	$(call execute_in_env, python pipeline/4_scaling.py)
 	$(call execute_in_env, python pipeline/5_inverse_kinematics.py)
 
 ## Copy data local to distant
