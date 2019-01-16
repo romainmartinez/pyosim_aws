@@ -16,7 +16,7 @@ conf.check_confs()
 model_names = ["wu"]
 
 for i, iparticipant in enumerate(participants):
-    print(f"\nparticipant: {iparticipant}")
+    print(f"\nparticipant #{i}: {iparticipant}")
 
     # ignore some trials
     blacklist_suffix = "0"

@@ -67,6 +67,10 @@ inverse_kinematics:
 inverse_dynamics:
 	$(call execute_in_env, python pipeline/6_inverse_dynamics.py)
 
+## Performs inverse dynamics
+static_optimization:
+	$(call execute_in_env, python pipeline/7_static_optimization.py)
+
 ## Distant pipeline (scaling, IK, ID, SO, MA, JR)
 distant_pipeline:
 	make copy_local_to_distant

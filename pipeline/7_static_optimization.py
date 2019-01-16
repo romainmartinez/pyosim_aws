@@ -1,51 +1,44 @@
 """
-Example: run static optimization and export sto
+Static optimization
 """
-
-from pathlib import Path
-
+import yaml
 from pyosim import Conf
 from pyosim import StaticOptimization
-from project_conf import PROJECT_PATH, TEMPLATES_PATH
 
+aws_conf = yaml.safe_load(open("./conf.yml"))
+local_or_distant = "distant" if aws_conf["distant_id"]["enable"] else "local"
 
-def main():
-    model_names = ['wu']  #, 'das']
+conf = Conf(project_path=aws_conf["path"]["project"][local_or_distant])
+participants = conf.get_participants_to_process()
+conf.check_confs()
 
-    conf = Conf(project_path=PROJECT_PATH)
-    conf.check_confs()
+model_names = ["wu"]  # , 'das']
 
-    participants = conf.get_participants_to_process()
+for i, iparticipant in enumerate(['sarc']):
+    print(f"\nparticipant #{i}: {iparticipant}")
 
-    for iparticipant in participants:
-        print(f'\nparticipant: {iparticipant}')
+    # ignore some trials
+    blacklist_suffix = "0"
 
-        # ignore some trials
-        blacklist_suffix = '0'
+    trials = [
+        ifile
+        for ifile in (conf.project_path / iparticipant / "1_inverse_kinematic").glob(
+            "*.mot"
+        )
+        if not ifile.stem.endswith(blacklist_suffix)
+    ]
 
-        trials = [ifile for ifile in (PROJECT_PATH / iparticipant / '1_inverse_kinematic').glob('*.mot') if
-                  not ifile.stem.endswith(blacklist_suffix)]
+    for imodel in model_names:
+        path_kwargs = {
+            "model_input": f"{(conf.project_path / iparticipant / '_models' / imodel).resolve()}_scaled_markers.osim",
+            "xml_input": f"{(conf.project_path / '_templates' / imodel).resolve()}_so.xml",
+            "xml_output": f"{(conf.project_path / iparticipant / '_xml' / imodel).resolve()}_so.xml",
+            "xml_forces": f"{(conf.project_path / '_templates' / 'forces_sensor.xml').resolve()}",
+            "xml_actuators": f"{(conf.project_path / '_templates' / f'{imodel}_actuators.xml').resolve()}",
+            "ext_forces_dir": f"{(conf.project_path / iparticipant / '0_forces').resolve()}",
+            "sto_output": f"{(conf.project_path / iparticipant / '3_static_optimization').resolve()}",
+        }
 
-        for imodel in model_names:
-            path_kwargs = {
-                'model_input': f"{(PROJECT_PATH / iparticipant / '_models' / imodel).resolve()}_scaled_markers.osim",
-                'xml_input': f"{(TEMPLATES_PATH / imodel).resolve()}_so.xml",
-                'xml_output': f"{(PROJECT_PATH / iparticipant / '_xml' / imodel).resolve()}_so.xml",
-                'xml_forces': f"{(TEMPLATES_PATH / 'forces_sensor.xml').resolve()}",
-                'xml_actuators': f"{(TEMPLATES_PATH / f'{imodel}_actuators.xml').resolve()}",
-                'ext_forces_dir': f"{(PROJECT_PATH / iparticipant / '0_forces').resolve()}",
-                'sto_output': f"{(PROJECT_PATH / iparticipant / '3_static_optimization').resolve()}",
-                'enforce_analysis': True
-            }
-
-            StaticOptimization(
-                **path_kwargs,
-                mot_files=trials,
-                prefix=imodel,
-                low_pass=5,
-                multi=False
-            )
-
-
-if __name__ == '__main__':
-    main()
+        StaticOptimization(
+            **path_kwargs, mot_files=trials, prefix=imodel, low_pass=5, multi=True
+        )
