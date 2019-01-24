@@ -4,7 +4,6 @@ Inverse Kinematics
 import yaml
 from pyosim import Conf
 from pyosim import InverseKinematics
-import re
 
 aws_conf = yaml.safe_load(open("./conf.yml"))
 local_or_distant = "distant" if aws_conf["distant_id"]["enable"] else "local"

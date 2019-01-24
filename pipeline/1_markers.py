@@ -12,6 +12,7 @@ local_or_distant = "distant" if aws_conf["distant_id"]["enable"] else "local"
 
 conf = Conf(project_path=aws_conf["path"]["project"][local_or_distant])
 participants = conf.get_participants_to_process()
+conf.check_confs()
 
 markers_labels = conf.get_conf_field(
     participant=participants[0], field=["markers", "targets"]
@@ -58,7 +59,6 @@ for i, iparticipant in enumerate(participants):
                     # replace pure zero by nans
                     markers[markers == 0] = np.nan
 
-                    markers
                     if nan_idx:
                         # if there is any empty assignment, fill the dimension with nan
                         for i in nan_idx:
