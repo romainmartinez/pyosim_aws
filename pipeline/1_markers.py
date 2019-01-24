@@ -7,7 +7,7 @@ import yaml
 import numpy as np
 from pyosim import Conf, Markers3dOsim
 
-aws_conf = yaml.safe_load(open("../conf.yml"))
+aws_conf = yaml.safe_load(open("./conf.yml"))
 local_or_distant = "distant" if aws_conf["distant_id"]["enable"] else "local"
 
 conf = Conf(project_path=aws_conf["path"]["project"][local_or_distant])
@@ -54,6 +54,11 @@ for i, iparticipant in enumerate(participants):
                     markers = Markers3dOsim.from_c3d(
                         itrial, names=iassign_without_nans, prefix=":"
                     )
+
+                    # replace pure zero by nans
+                    markers[markers == 0] = np.nan
+
+                    markers
                     if nan_idx:
                         # if there is any empty assignment, fill the dimension with nan
                         for i in nan_idx:

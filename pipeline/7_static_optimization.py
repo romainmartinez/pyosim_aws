@@ -14,18 +14,14 @@ conf.check_confs()
 
 model_names = ["wu"]  # , 'das']
 
-for i, iparticipant in enumerate(['sarc']):
+for i, iparticipant in enumerate(["sarc"]):
     print(f"\nparticipant #{i}: {iparticipant}")
-
-    # ignore some trials
-    blacklist_suffix = "0"
 
     trials = [
         ifile
         for ifile in (conf.project_path / iparticipant / "1_inverse_kinematic").glob(
             "*.mot"
         )
-        if not ifile.stem.endswith(blacklist_suffix)
     ]
 
     for imodel in model_names:
