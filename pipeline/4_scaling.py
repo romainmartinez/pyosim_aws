@@ -1,7 +1,6 @@
 """
 Scaling
 """
-
 import yaml
 from pyosim import Conf
 from pyosim import Scale

@@ -5,16 +5,16 @@ import yaml
 from pyosim import Conf
 from pyosim import StaticOptimization
 
-aws_conf = yaml.safe_load(open("../conf.yml"))
+aws_conf = yaml.safe_load(open("./conf.yml"))
 local_or_distant = "distant" if aws_conf["distant_id"]["enable"] else "local"
 
 conf = Conf(project_path=aws_conf["path"]["project"][local_or_distant])
 participants = conf.get_participants_to_process()
 conf.check_confs()
 
-model_names = ["wu"]  # , 'das']
+model_names = ["wu"]
 
-for i, iparticipant in enumerate(["sarc"]):
+for i, iparticipant in enumerate(participants):
     print(f"\nparticipant #{i}: {iparticipant}")
 
     trials = [

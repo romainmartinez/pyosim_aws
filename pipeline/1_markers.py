@@ -1,7 +1,6 @@
 """
 Export markers to trc
 """
-
 from pathlib import Path
 import yaml
 import numpy as np

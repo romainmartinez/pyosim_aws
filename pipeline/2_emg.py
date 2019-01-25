@@ -1,7 +1,6 @@
 """
 Example: export emg to sto
 """
-
 import os
 from multiprocessing import Pool
 from pathlib import Path

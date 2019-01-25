@@ -21,7 +21,7 @@ path:
 
 distant_id:
   enable: True
-  id: "ubuntu@ec2-18-224-4-151.us-east-2.compute.amazonaws.com"
+  id: "ubuntu@ec2-18-216-252-106.us-east-2.compute.amazonaws.com"
   pem: "~/Downloads/east-ohio-mrtnz.pem"
 
 assignment:
