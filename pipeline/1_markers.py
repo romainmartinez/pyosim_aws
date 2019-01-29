@@ -6,7 +6,7 @@ import yaml
 import numpy as np
 from pyosim import Conf, Markers3dOsim
 
-aws_conf = yaml.safe_load(open("./conf.yml"))
+aws_conf = yaml.safe_load(open("../conf.yml"))
 local_or_distant = "distant" if aws_conf["distant_id"]["enable"] else "local"
 
 conf = Conf(project_path=aws_conf["path"]["project"][local_or_distant])
@@ -34,15 +34,22 @@ for i, iparticipant in enumerate(participants):
             # try participant's channel assignment
             for iassign in assigned:
 
-                # delete some markers if particular trials (box markers during score)
-                if Path(idir).stem == "MODEL2":
+                # special cases -----------------
+                if itrial.stem[-2] == "d" and itrial.stem[-1] != "0":
+                    blacklist = True
+                    break
+                elif itrial.stem in ["FabDH6H6_2", "FabDH6H6_3"]:
+                    blacklist = True
+                    break
+                elif itrial.stem[-1] == "0":
                     iassign = [i if n < 43 else "" for n, i in enumerate(iassign)]
-                    # skip some trials
-                    if itrial.stem[-1] == "0":
-                        pass
-                    else:
-                        blacklist = True
-                        break
+
+                # DEBUG ---------------
+
+                # l = Markers3dOsim.from_c3d(itrial, prefix=":").get_labels
+                # [i if i not in l else "" for i in iassign]
+
+                # ---------------------
 
                 nan_idx = [i for i, v in enumerate(iassign) if not v]
                 if nan_idx:
