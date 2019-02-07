@@ -25,7 +25,7 @@ params = {
     ),
 }
 
-for i, iparticipant in enumerate([participants[13]]):
+for i, iparticipant in enumerate([participants[10]]):
     print(f"\nparticipant #{i}: {iparticipant}")
     directories = conf.get_conf_field(
         participant=iparticipant, field=["analogs", "data"]
@@ -131,7 +131,7 @@ for i, iparticipant in enumerate([participants[13]]):
 
         forces.get_labels = params["forces_labels"]
         sto_filename = (
-            f"{conf.project_path  / iparticipant / '0_forces' / itrial.stem}.sto"
+            f"{conf.project_path / iparticipant / '0_forces' / itrial.stem}.sto"
         )
 
         forces.to_sto(filename=sto_filename)
