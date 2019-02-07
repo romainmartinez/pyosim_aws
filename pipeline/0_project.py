@@ -5,7 +5,7 @@ import yaml
 from pyoviz import FieldsAssignment
 from pyosim import Conf, Project
 
-aws_conf = yaml.safe_load(open("./conf.yml"))
+aws_conf = yaml.safe_load(open("../conf.yml"))
 local_or_distant = "distant" if aws_conf["distant_id"]["enable"] else "local"
 
 # create Project object
