@@ -5,7 +5,7 @@ import yaml
 from pyoviz import FieldsAssignment
 from pyosim import Conf, Project
 
-aws_conf = yaml.safe_load(open("./conf.yml"))
+aws_conf = yaml.safe_load(open("../conf_experts_novices.yml"))
 local_or_distant = "distant" if aws_conf["distant_id"]["enable"] else "local"
 
 # create Project object
@@ -22,17 +22,11 @@ conf.check_confs()
 participants = conf.get_participants_to_process()
 d = {}
 for iparticipant in participants:
-    pseudo_in_path = (
-        iparticipant[0].upper() + iparticipant[1:-1] + iparticipant[-1].upper()
-    )
+    lat = "d" if conf.get_conf_field(iparticipant, ["laterality"]) == 'd' else "g"
 
-    trials = (
-        f"{aws_conf['path']['data'][local_or_distant]}/IRSST_{pseudo_in_path}d/trials"
-    )
-    score = (
-        f"{aws_conf['path']['data'][local_or_distant]}/IRSST_{pseudo_in_path}d/MODEL2"
-    )
-    mvc = f"{aws_conf['path']['mvc'][local_or_distant]}/{pseudo_in_path}"
+    trials = f"{aws_conf['path']['data'][local_or_distant]}/irssten_{iparticipant}{lat}/trials"
+    score = f"{aws_conf['path']['data'][local_or_distant]}/irssten_{iparticipant}{lat}/MODEL1000"
+    mvc = f"{aws_conf['path']['mvc'][local_or_distant]}/irssten_{iparticipant}{lat}/mvc"
 
     d.update(
         {

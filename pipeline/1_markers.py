@@ -6,7 +6,7 @@ import yaml
 import numpy as np
 from pyosim import Conf, Markers3dOsim
 
-aws_conf = yaml.safe_load(open("../conf.yml"))
+aws_conf = yaml.safe_load(open("../conf_experts_novices.yml"))
 local_or_distant = "distant" if aws_conf["distant_id"]["enable"] else "local"
 
 conf = Conf(project_path=aws_conf["path"]["project"][local_or_distant])
@@ -17,7 +17,7 @@ markers_labels = conf.get_conf_field(
     participant=participants[0], field=["markers", "targets"]
 )
 
-for i, iparticipant in enumerate(participants):
+for i, iparticipant in enumerate(participants[:]):
     print(f"\nparticipant #{i}: {iparticipant}")
     directories = conf.get_conf_field(
         participant=iparticipant, field=["markers", "data"]
@@ -26,28 +26,25 @@ for i, iparticipant in enumerate(participants):
         participant=iparticipant, field=["markers", "assigned"]
     )
 
-    for idir in directories:
+    for idir in [directories[-1]]:
         print(f"\n\tdirectory: {idir}")
 
-        for itrial in Path(idir).glob("*.c3d"):
+        for i, itrial in enumerate(list(Path(idir).glob("*.c3d"))[:]):
+            print(f"#{i} - {itrial.stem}")
             blacklist = False
             # try participant's channel assignment
             for iassign in assigned:
 
                 # special cases -----------------
-                if itrial.stem[-2] == "d" and itrial.stem[-1] != "0":
+                if itrial.stem[-1] != "0":
                     blacklist = True
                     break
-                elif itrial.stem in ["FabDH6H6_2", "FabDH6H6_3"]:
-                    blacklist = True
-                    break
-                elif itrial.stem[-1] == "0":
-                    iassign = [i if n < 43 else "" for n, i in enumerate(iassign)]
 
                 # DEBUG ---------------
 
                 # l = Markers3dOsim.from_c3d(itrial, prefix=":").get_labels
-                # [i if i not in l else "" for i in iassign]
+                # c = [i if i not in l else "" for i in iassign]
+                # print(list(filter(None, c)))
 
                 # ---------------------
 
@@ -69,15 +66,13 @@ for i, iparticipant in enumerate(participants):
                         # if there is any empty assignment, fill the dimension with nan
                         for i in nan_idx:
                             markers = np.insert(markers, i, np.nan, axis=1)
-                        print(f"\t{itrial.stem} (NaNs: {nan_idx})")
-                    else:
-                        print(f"\t{itrial.stem}")
+                        print(f"\tNaNs: {nan_idx}")
 
                     # check if dimensions are ok
                     if not markers.shape[1] == len(iassign):
                         raise ValueError("Wrong dimensions")
                     break
-                except IndexError:
+                except ValueError:
                     print("WARNING")
                     markers = []
 
