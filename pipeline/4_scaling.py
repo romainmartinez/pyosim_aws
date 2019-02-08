@@ -5,7 +5,7 @@ import yaml
 from pyosim import Conf
 from pyosim import Scale
 
-aws_conf = yaml.safe_load(open("./conf.yml"))
+aws_conf = yaml.safe_load(open("../conf_experts_novices.yml"))
 local_or_distant = "distant" if aws_conf["distant_id"]["enable"] else "local"
 
 conf = Conf(project_path=aws_conf["path"]["project"][local_or_distant])
@@ -17,10 +17,8 @@ WU_MASS_FACTOR = 24.385 / 68.2
 
 for i, iparticipant in enumerate(participants):
     print(f"\nparticipant #{i}: {iparticipant}")
-    pseudo_in_path = (
-        iparticipant[0].upper() + iparticipant[1:-1] + iparticipant[-1].upper()
-    )
-    static_path = f"{conf.project_path / iparticipant / '0_markers' / 'IRSST_'}{pseudo_in_path}d0.trc"
+    lat = "d" if conf.get_conf_field(iparticipant, ["laterality"]) == 'd' else "g"
+    static_path = f"{conf.project_path / iparticipant / '0_markers' / 'irssten_'}{iparticipant}{lat}0.trc"
     mass = conf.get_conf_field(iparticipant, ["mass"])
     height = conf.get_conf_field(iparticipant, ["height"])
 

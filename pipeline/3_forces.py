@@ -134,7 +134,7 @@ for i, iparticipant in enumerate([participants[10]]):
             f"{conf.project_path / iparticipant / '0_forces' / itrial.stem}.sto"
         )
 
-        forces.to_sto(filename=sto_filename)
+        # forces.to_sto(filename=sto_filename)
 
         # add onset & offset in configuration
         onset = idx[0][0] / forces.get_rate

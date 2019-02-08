@@ -14,7 +14,7 @@ from pyosim import Analogs3dOsim
 # path
 MULTIPROC = True
 
-aws_conf = yaml.safe_load(open("../conf.yml"))
+aws_conf = yaml.safe_load(open("../conf_experts_novices.yml"))
 local_or_distant = "distant" if aws_conf["distant_id"]["enable"] else "local"
 
 conf = Conf(project_path=aws_conf["path"]["project"][local_or_distant])
