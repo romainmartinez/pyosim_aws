@@ -4,7 +4,6 @@ channels:
 - defaults
 - pyomeca
 - conda-forge
-- kzts
 dependencies:
 - python
 - pyyaml
