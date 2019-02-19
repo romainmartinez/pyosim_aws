@@ -20,8 +20,8 @@ path:
   calibration_matrix: "./project_sample/forces_calibration_matrix.csv"
 
 distant_id:
-  enable: False
-  id: "ubuntu@ec2-18-216-252-106.us-east-2.compute.amazonaws.com"
+  enable: True
+  id: "ubuntu@ec2-13-59-0-64.us-east-2.compute.amazonaws.com"
   pem: "~/Downloads/east-ohio-mrtnz.pem"
 
 assignment:

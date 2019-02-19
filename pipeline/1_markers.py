@@ -17,7 +17,7 @@ markers_labels = conf.get_conf_field(
     participant=participants[0], field=["markers", "targets"]
 )
 
-for i, iparticipant in enumerate(participants):
+for i, iparticipant in enumerate(participants[10:]):
     print(f"\nparticipant #{i}: {iparticipant}")
     directories = conf.get_conf_field(
         participant=iparticipant, field=["markers", "data"]
@@ -61,9 +61,11 @@ for i, iparticipant in enumerate(participants):
                     markers = Markers3dOsim.from_c3d(
                         itrial, names=iassign_without_nans, prefix=":"
                     )
+                    markers.get_nan_idx = np.array([])
 
                     # replace pure zero by nans
                     markers[markers == 0] = np.nan
+                    markers = markers.fill_values()
 
                     if nan_idx:
                         # if there is any empty assignment, fill the dimension with nan
