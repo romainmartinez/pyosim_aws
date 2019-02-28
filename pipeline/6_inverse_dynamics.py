@@ -14,15 +14,22 @@ conf.check_confs()
 
 model_names = ["wu"]
 
-for i, iparticipant in enumerate(participants):
+blacklist = ["wu_AnnSF6H2_1", "wu_AnnSF6H2_3"]
+
+for i, iparticipant in enumerate(participants[27:]):
     print(f"\nparticipant #{i}: {iparticipant}")
 
-    trials = [
-        ifile
-        for ifile in (conf.project_path / iparticipant / "1_inverse_kinematic").glob(
-            "*.mot"
+    trials = list(
+        filter(
+            None,
+            [
+                ifile if ifile.stem not in blacklist else ""
+                for ifile in (
+                    conf.project_path / iparticipant / "1_inverse_kinematic"
+                ).glob("*.mot")
+            ],
         )
-    ]
+    )
 
     for imodel in model_names:
         path_kwargs = {
@@ -35,5 +42,5 @@ for i, iparticipant in enumerate(participants):
         }
 
         InverseDynamics(
-            **path_kwargs, mot_files=trials, prefix=imodel, low_pass=10, multi=True
+            **path_kwargs, mot_files=trials, prefix=imodel, low_pass=10, multi=False
         )
