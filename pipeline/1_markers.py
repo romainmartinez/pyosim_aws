@@ -17,7 +17,7 @@ markers_labels = conf.get_conf_field(
     participant=participants[0], field=["markers", "targets"]
 )
 
-for i, iparticipant in enumerate(participants[10:]):
+for i, iparticipant in enumerate(participants[31:]):
     print(f"\nparticipant #{i}: {iparticipant}")
     directories = conf.get_conf_field(
         participant=iparticipant, field=["markers", "data"]
@@ -38,7 +38,7 @@ for i, iparticipant in enumerate(participants[10:]):
                 if itrial.stem[-2] == "d" and itrial.stem[-1] != "0":
                     blacklist = True
                     break
-                elif itrial.stem in ["FabDH6H6_2", "FabDH6H6_3"]:
+                elif itrial.stem in ["FabDH6H6_2", "FabDH6H6_3", "AmiAF6H2_1"]:
                     blacklist = True
                     break
                 elif itrial.stem[-1] == "0":
@@ -71,9 +71,13 @@ for i, iparticipant in enumerate(participants[10:]):
                         np.isnan(markers[0, ...]).sum(axis=0) > int(len(iassign) / 3)
                     ).ravel()
                     if n_missing.any():
-                        print(f"\t{n_missing.shape[0] / markers.shape[-1] * 100:.2f}% frames deleted")
+                        print(
+                            f"\t{n_missing.shape[0] / markers.shape[-1] * 100:.2f}% frames deleted"
+                        )
                         markers = np.delete(markers, n_missing, -1)
-                        markers.get_time_frames = np.delete(markers.get_time_frames, n_missing, 0)
+                        markers.get_time_frames = np.delete(
+                            markers.get_time_frames, n_missing, 0
+                        )
 
                     if nan_idx:
                         # if there is any empty assignment, fill the dimension with nan

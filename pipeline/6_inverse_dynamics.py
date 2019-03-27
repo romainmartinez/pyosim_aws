@@ -5,6 +5,8 @@ import yaml
 from pyosim import Conf
 from pyosim import InverseDynamics
 
+import pandas as pd
+
 aws_conf = yaml.safe_load(open("../conf.yml"))
 local_or_distant = "distant" if aws_conf["distant_id"]["enable"] else "local"
 
@@ -14,9 +16,38 @@ conf.check_confs()
 
 model_names = ["wu"]
 
-blacklist = ["wu_AnnSF6H2_1", "wu_AnnSF6H2_3"]
+blacklist = [
+    "wu_AnnSF6H2_1",
+    "wu_AnnSF6H2_3",
+    "wu_SteBF6H2_2",
+    "wu_JawRH12H4_1",
+    "wu_JawRH12H3_3",
+    "wu_JawRH12H3_2",
+    "wu_JawRH12H2_1",
+    "wu_JawRH12H1_3",
+    "wu_NemKH6H2_3",
+    "wu_NemKH6H1_3",
+    "wu_NemKH6H1_2",
+    "wu_NemKH6H1_1",
+    "wu_NemKH18H2_3",
+    "wu_NemKH12H2_2",
+    "wu_NemKH12H1_3",
+    "wu_NemKH12H1_2",
+    "wu_GeoAH6H1_2",
+    "wu_GeoAH18H2_3",
+    "wu_GeoAH18H1_2",
+]
 
-for i, iparticipant in enumerate(participants[27:]):
+# append blacklist with verifications
+verif_file = conf.project_path / "verification.csv"
+try:
+    blacklist.extend(
+        pd.read_csv(verif_file, index_col=[0]).query("tag > 1")["trial"].tolist()
+    )
+except FileNotFoundError:
+    print(f"{verif_file} not found.")
+
+for i, iparticipant in enumerate(participants[26:]):
     print(f"\nparticipant #{i}: {iparticipant}")
 
     trials = list(
@@ -42,5 +73,5 @@ for i, iparticipant in enumerate(participants[27:]):
         }
 
         InverseDynamics(
-            **path_kwargs, mot_files=trials, prefix=imodel, low_pass=10, multi=False
+            **path_kwargs, mot_files=trials, prefix=imodel, low_pass=10, multi=True
         )
