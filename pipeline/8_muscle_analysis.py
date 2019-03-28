@@ -5,7 +5,7 @@ import yaml
 from pyosim import Conf
 from pyosim import MuscleAnalysis
 
-aws_conf = yaml.safe_load(open("./conf.yml"))
+aws_conf = yaml.safe_load(open("../conf.yml"))
 local_or_distant = "distant" if aws_conf["distant_id"]["enable"] else "local"
 
 conf = Conf(project_path=aws_conf["path"]["project"][local_or_distant])
@@ -29,11 +29,11 @@ for iparticipant in participants:
             "model_input": f"{(conf.project_path / iparticipant / '_models' / imodel).resolve()}_scaled_markers.osim",
             "xml_input": f"{(conf.project_path / '_templates' / imodel).resolve()}_ma.xml",
             "xml_output": f"{(conf.project_path / iparticipant / '_xml' / imodel).resolve()}_ma.xml",
-            "xml_forces": f"{(conf.project_path / 'forces_sensor.xml').resolve()}",
+            "xml_forces": f"{(conf.project_path / '_templates' / 'forces_sensor.xml').resolve()}",
             "xml_actuators": f"{(conf.project_path / f'{imodel}_actuators.xml').resolve()}",
             "ext_forces_dir": f"{(conf.project_path / iparticipant / '0_forces').resolve()}",
             "sto_output": f"{(conf.project_path / iparticipant / '4_muscle_analysis').resolve()}",
-            "enforce_analysis": True,
+            # "enforce_analysis": True,
         }
 
         MuscleAnalysis(
