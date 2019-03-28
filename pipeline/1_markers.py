@@ -17,7 +17,7 @@ markers_labels = conf.get_conf_field(
     participant=participants[0], field=["markers", "targets"]
 )
 
-for i, iparticipant in enumerate(participants[:]):
+for i, iparticipant in enumerate([participants[0]]):
     print(f"\nparticipant #{i}: {iparticipant}")
     directories = conf.get_conf_field(
         participant=iparticipant, field=["markers", "data"]
@@ -26,7 +26,7 @@ for i, iparticipant in enumerate(participants[:]):
         participant=iparticipant, field=["markers", "assigned"]
     )
 
-    for idir in [directories[-1]]:
+    for idir in directories:
         print(f"\n\tdirectory: {idir}")
 
         for i, itrial in enumerate(list(Path(idir).glob("*.c3d"))[:]):
@@ -36,7 +36,9 @@ for i, iparticipant in enumerate(participants[:]):
             for iassign in assigned:
 
                 # special cases -----------------
-                if itrial.stem[-1] != "0":
+                if itrial.stem[-2:] == "d0":
+                    iassign = [i if n < 33 else "" for n, i in enumerate(iassign)]
+                elif itrial.stem[-2:] == 'd1':
                     blacklist = True
                     break
 

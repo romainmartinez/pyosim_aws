@@ -1,0 +1,94 @@
+repo_name: 'pyosim_aws'
+repo_info: >
+  <img style="float: right; width: 100px" src="https://raw.github.com/pyomeca/design/master/logo/logo_cropped.svg?sanitize=true">
+
+
+  # Pyosim in the cloud
+
+  ## with [pyomeca](https://github.com/pyomeca/pyomeca)
+
+  Romain Martinez (martinez.staps@gmail.com | [GitHub](https://github.com/romainmartinez))
+
+path:
+  project:
+    local: "/media/romain/E/Projet_ExpertsNovices/opensim"
+    distant: '/home/ubuntu/irsst'
+  data:
+    local: "/media/romain/F/Data/IRSST/RAW"
+  mvc:
+    local: "/media/romain/F/Data/IRSST/RAW"
+  calibration_matrix: "./project_sample/forces_calibration_matrix.csv"
+
+distant_id:
+  enable: False
+  id: "ubuntu@ec2-18-222-170-255.us-east-2.compute.amazonaws.com"
+  pem: "~/Downloads/east-ohio-mrtnz.pem"
+
+assignment:
+  emg: [
+    "deltant",
+    "deltmed",
+    "deltpost",
+    "biceps",
+    "triceps",
+    "uptrap",
+    "pect",
+    "ssp",
+    "isp",
+    "subs",
+  ]
+  analogs: [
+    "Fx_1",
+    "Fy_1",
+    "Fz_1",
+    "Mx_1",
+    "My_1",
+    "Mz_1",
+    "Fx_2",
+    "Fy_2",
+    "Fz_2",
+    "Mx_2",
+    "My_2",
+    "Mz_2",
+    "Fx_3",
+    "Fy_3",
+    "Fz_3",
+    "Mx_3",
+    "My_3",
+    "Mz_3",
+  ]
+  markers: [
+    "ASISl",
+    "ASISr",
+    "PSISr",
+    "PSISl",
+    "XIPH",
+    "STER",
+    "STERlat",
+    "STERback",
+    "XIPHback",
+    "ThL",
+    "CLAV_SC",
+    "CLAV_ACm",
+    "SCAP_CP",
+    "SCAP_AA",
+    "SCAP_spine",
+    "SCAP_TS",
+    "SCAP_IA",
+    "DELT",
+    "ARMl",
+    "EPICl",
+    "EPICm",
+    "LARM_ant",
+    "LARM_post",
+    "LARM_elb",
+    "LARM_dist",
+    "STYLrad",
+    "STYLrad_up",
+    "STYLulna_up",
+    "STYLulna",
+    "META2dist",
+    "META2prox",
+    "META5prox",
+    "META5dist",
+  ]

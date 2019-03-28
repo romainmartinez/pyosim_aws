@@ -45,7 +45,7 @@ for ikind, itarget in aws_conf["assignment"].items():
 
     for iparticipant in participants:
         print(f"\t{iparticipant} - {ikind}")
-        if "assigned" not in conf.get_conf_field(iparticipant, [ikind]):
+        if True or "assigned" not in conf.get_conf_field(iparticipant, [ikind]):
             fields = FieldsAssignment(
                 directory=conf.get_conf_field(iparticipant, field=[ikind, "data"]),
                 targets=itarget,
