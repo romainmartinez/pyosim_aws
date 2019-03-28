@@ -5,7 +5,9 @@ import yaml
 from pyosim import Conf
 from pyosim import StaticOptimization
 
-aws_conf = yaml.safe_load(open("./conf.yml"))
+import pandas as pd
+
+aws_conf = yaml.safe_load(open("../conf.yml"))
 local_or_distant = "distant" if aws_conf["distant_id"]["enable"] else "local"
 
 conf = Conf(project_path=aws_conf["path"]["project"][local_or_distant])
@@ -14,15 +16,53 @@ conf.check_confs()
 
 model_names = ["wu"]
 
-for i, iparticipant in enumerate(participants):
+blacklist = [
+    "wu_AnnSF6H2_1",
+    "wu_AnnSF6H2_3",
+    "wu_SteBF6H2_2",
+    "wu_JawRH12H4_1",
+    "wu_JawRH12H3_3",
+    "wu_JawRH12H3_2",
+    "wu_JawRH12H2_1",
+    "wu_JawRH12H1_3",
+    "wu_NemKH6H2_3",
+    "wu_NemKH6H1_3",
+    "wu_NemKH6H1_2",
+    "wu_NemKH6H1_1",
+    "wu_NemKH18H2_3",
+    "wu_NemKH12H2_2",
+    "wu_NemKH12H1_3",
+    "wu_NemKH12H1_2",
+    "wu_GeoAH6H1_2",
+    "wu_GeoAH18H2_3",
+    "wu_GeoAH18H1_2",
+    "wu_DavOH12H2_3",
+    "wu_PatMH12H2_2",
+]
+
+# append blacklist with verifications
+verif_file = conf.project_path / "verification.csv"
+try:
+    blacklist.extend(
+        pd.read_csv(verif_file, index_col=[0]).query("tag > 1")["trial"].tolist()
+    )
+except FileNotFoundError:
+    print(f"{verif_file} not found.")
+
+for i, iparticipant in enumerate(participants[15:]):
     print(f"\nparticipant #{i}: {iparticipant}")
 
-    trials = [
-        ifile
-        for ifile in (conf.project_path / iparticipant / "1_inverse_kinematic").glob(
-            "*.mot"
+    trials = list(
+        filter(
+            None,
+            [
+                ifile if ifile.stem not in blacklist else ""
+                for ifile in (
+                    conf.project_path / iparticipant / "1_inverse_kinematic"
+                ).glob("*.mot")
+            ],
         )
-    ]
+    )
 
     for imodel in model_names:
         path_kwargs = {
@@ -36,5 +76,5 @@ for i, iparticipant in enumerate(participants):
         }
 
         StaticOptimization(
-            **path_kwargs, mot_files=trials, prefix=imodel, low_pass=5, multi=True
+            **path_kwargs, mot_files=trials, prefix=imodel, low_pass=5, multi=False
         )

@@ -60,9 +60,23 @@ for i, iparticipant in enumerate([participants[0]]):
                     markers = Markers3dOsim.from_c3d(
                         itrial, names=iassign_without_nans, prefix=":"
                     )
+                    markers.get_nan_idx = np.array([])
 
                     # replace pure zero by nans
                     markers[markers == 0] = np.nan
+
+                    # skip frames where more than 1/3 of the markers are missing
+                    n_missing = np.argwhere(
+                        np.isnan(markers[0, ...]).sum(axis=0) > int(len(iassign) / 3)
+                    ).ravel()
+                    if n_missing.any():
+                        print(
+                            f"\t{n_missing.shape[0] / markers.shape[-1] * 100:.2f}% frames deleted"
+                        )
+                        markers = np.delete(markers, n_missing, -1)
+                        markers.get_time_frames = np.delete(
+                            markers.get_time_frames, n_missing, 0
+                        )
 
                     if nan_idx:
                         # if there is any empty assignment, fill the dimension with nan

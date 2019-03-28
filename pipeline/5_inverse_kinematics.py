@@ -12,13 +12,15 @@ conf = Conf(project_path=aws_conf["path"]["project"][local_or_distant])
 participants = conf.get_participants_to_process()
 conf.check_confs()
 
+# [[i, p] for i, p in enumerate(participants)]
+
 model_names = ["wu"]
 offset = 0.05  # take .5 second before and after onsets
 
 # take only trials containing...
 subset = "H2"
 
-for i, iparticipant in enumerate(participants):
+for i, iparticipant in enumerate(participants[31:]):
     print(f"\nparticipant #{i}: {iparticipant}")
 
     trials = [
@@ -40,5 +42,5 @@ for i, iparticipant in enumerate(participants):
         }
 
         InverseKinematics(
-            **path_kwargs, trc_files=trials, onsets=onsets, prefix=imodel, multi=True
+            **path_kwargs, trc_files=trials, onsets=onsets, prefix=imodel, multi=False
         )

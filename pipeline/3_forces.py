@@ -25,7 +25,7 @@ params = {
     ),
 }
 
-for i, iparticipant in enumerate([participants[10]]):
+for i, iparticipant in enumerate(participants[38:]):
     print(f"\nparticipant #{i}: {iparticipant}")
     directories = conf.get_conf_field(
         participant=iparticipant, field=["analogs", "data"]
@@ -48,6 +48,7 @@ for i, iparticipant in enumerate([participants[10]]):
                 forces = Analogs3dOsim.from_c3d(
                     itrial, names=iassign_without_nans, prefix=":"
                 )
+                # Analogs3dOsim.from_c3d(itrial).get_labels
                 if nan_idx:
                     forces.get_nan_idx = np.array(nan_idx)
                     # if there is any empty assignment, fill the dimension with nan
@@ -61,7 +62,7 @@ for i, iparticipant in enumerate([participants[10]]):
                 if not forces.shape[1] == len(iassign):
                     raise ValueError("Wrong dimensions")
                 break
-            except IndexError:
+            except ValueError:
                 forces = []
 
         # check if there is empty frames
@@ -102,31 +103,120 @@ for i, iparticipant in enumerate([participants[10]]):
         if itrial.stem == "GatBH18H4_2":
             idx[0][1] = 17122
         if itrial.stem == "GatBH18H4_3":
-            idx = idx[0][None]
-            idx[0][0] = 5271
-            idx[0][1] = 15965
+            idx = np.array([[5271, 15965]])
+        if itrial.stem == "CamBF12H5_3":
+            continue
+        if itrial.stem == "EveDF12H1_2":
+            idx = np.array([[1229, 5549]])
+        if itrial.stem == "SamNF12H5_2":
+            idx = np.array([[3483, 14498]])
+        if itrial.stem == "SamNF6H3_1":
+            idx = np.array([[3698, 12314]])
+        if itrial.stem == "AimQF12H3_1":
+            idx = np.array([[4041, 10328]])
+        if itrial.stem == "AleBH18H6_3":
+            idx = np.array([[2279, 11058]])
+        if itrial.stem == "AmiAF12H6_3":
+            idx = np.array([[6146, 16873]])
+        if itrial.stem == "CarBF12H6_3":
+            idx = np.array([[1649, 10415]])
+        if itrial.stem == "AnnSF6H2_3":
+            continue
+        if itrial.stem == "SteBF6H2_2":
+            continue
+        if itrial.stem == "SteBF6H3_1":
+            idx = np.array([[2591, 8100]])
+        if itrial.stem == "RoxDF6H6_1":
+            idx = np.array([[2883, 9514]])
+        if itrial.stem == "RoxDF6H6_2":
+            idx = np.array([[2883, 9514]])
+        if itrial.stem == "GeoAH12H1_2":
+            idx = np.array([[1110, 7764]])
+        if itrial.stem == "GeoAH12H2_1":
+            idx = np.array([[1136, 9211]])
+        if itrial.stem == "GeoAH18H1_2":
+            continue
+        if itrial.stem == "GeoAH18H2_3":
+            continue
+        if itrial.stem == "GeoAH6H1_2":
+            continue
+        if itrial.stem == "YoaBH12H2_3":
+            idx = np.array([[1500, 7137]])
+        if itrial.stem == "YoaBH12H3_1":
+            idx = np.array([[1395, 7000]])
+        if itrial.stem == "NemKH12H1_2":
+            continue
+        if itrial.stem == "NemKH12H1_3":
+            continue
+        if itrial.stem == "NemKH12H2_2":
+            continue
+        if itrial.stem == "NemKH18H2_3":
+            continue
+        if itrial.stem == "NemKH6H1_1":
+            continue
+        if itrial.stem == "NemKH6H1_2":
+            continue
+        if itrial.stem == "NemKH6H1_3":
+            continue
+        if itrial.stem == "NemKH6H2_3":
+            continue
+        if itrial.stem == "MatRH18H1_2":
+            idx = np.array([[1259, 7000]])
+        if itrial.stem == "MatRH6H1_2":
+            idx = np.array([[1000, 6000]])
+        if itrial.stem == "JawRH12H1_3":
+            continue
+        if itrial.stem == "JawRH12H2_1":
+            continue
+        if itrial.stem == "JawRH12H3_2":
+            continue
+        if itrial.stem == "JawRH12H3_3":
+            continue
+        if itrial.stem == "JawRH12H4_1":
+            continue
+        if itrial.stem == "JawRH18H4_3":
+            idx = np.array([[1259, 6965]])
+        if itrial.stem == "JawRH18H4_3":
+            idx = np.array([[1000, 7150]])
+        if itrial.stem == "JawRH18H4_3":
+            idx = np.array([[1000, 7150]])
+        if itrial.stem == "JawRH6H2_3":
+            idx = np.array([[1000, 7150]])
+        if itrial.stem == "PhiIH18H4_3":
+            idx = np.array([[1825, 7550]])
 
         if idx.shape[0] > 1:
             raise ValueError("more than one onset")
 
-        ten_percents = int(forces.shape[-1] * 0.1)
-        if idx[0][0] < ten_percents:
+        ten_percents = int(forces.shape[-1] * 0.08)
+        if idx[0][0] < ten_percents and itrial.stem not in [
+            "AmiAF12H2_1",
+            "GeoAH18H4_2",
+            "NemKH18H1_3",
+            "NemKH18H2_1",
+        ]:
             raise ValueError(
-                f"onset is less than 10% of the trial ({idx[0][0] / forces.shape[-1] * 100:2f}%)"
+                f"onset is less than 8% of the trial ({idx[0][0] / forces.shape[-1] * 100:2f}%)"
             )
 
         ninety_percents = int(forces.shape[-1] * 0.97)
-        if idx[0][1] > ninety_percents:
+        if idx[0][1] > ninety_percents and itrial.stem not in [
+            "FabDH12H5_2",
+            "DamGH18H6_2",
+            "PhiIH18H1_1",
+            "PhiIH18H4_2",
+            "PhiIH18H4_3",
+        ]:
             raise ValueError(
-                f"onset is less than 90% of the trial ({idx[0][1] / forces.shape[-1] * 100:.2f}%)"
+                f"onset is less than 97% of the trial ({idx[0][1] / forces.shape[-1] * 100:.2f}%)"
             )
 
         _, ax = plt.subplots(nrows=1, ncols=1)
         norm.plot(ax=ax)
-
         for (inf, sup) in idx:
             ax.axvline(x=inf, color="g", lw=2, ls="--")
             ax.axvline(x=sup, color="r", lw=2, ls="--")
+        plt.title(itrial.stem)
         plt.show()
 
         forces.get_labels = params["forces_labels"]
