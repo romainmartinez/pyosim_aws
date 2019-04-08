@@ -17,7 +17,7 @@ markers_labels = conf.get_conf_field(
     participant=participants[0], field=["markers", "targets"]
 )
 
-for i, iparticipant in enumerate(participants[31:]):
+for i, iparticipant in enumerate(participants[:]):
     print(f"\nparticipant #{i}: {iparticipant}")
     directories = conf.get_conf_field(
         participant=iparticipant, field=["markers", "data"]

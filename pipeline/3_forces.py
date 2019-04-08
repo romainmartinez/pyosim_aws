@@ -25,7 +25,7 @@ params = {
     ),
 }
 
-for i, iparticipant in enumerate(participants[38:]):
+for i, iparticipant in enumerate(participants[:]):
     print(f"\nparticipant #{i}: {iparticipant}")
     directories = conf.get_conf_field(
         participant=iparticipant, field=["analogs", "data"]
