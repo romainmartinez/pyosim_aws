@@ -23,11 +23,21 @@ subset = "H2"
 for i, iparticipant in enumerate(participants[:]):
     print(f"\nparticipant #{i}: {iparticipant}")
 
-    trials = [
-        ifile
-        for ifile in (conf.project_path / iparticipant / "0_markers").glob("*.trc")
-        if subset in ifile.stem
+    already_processed = [
+        itrial.stem for itrial in conf.project_path.glob("*/1_inverse_kinematic/*.mot")
     ]
+
+    trials = []
+    for ifile in (conf.project_path / iparticipant / "0_markers").glob("*.trc"):
+        if (
+            subset in ifile.stem
+            and f"{model_names[0]}_{ifile.stem}" not in already_processed
+        ):
+            trials.append(ifile)
+
+    if not trials:
+        continue
+
     onsets = conf.get_conf_field(iparticipant, ["onset"])
     onsets = {
         key: [values[0] - offset, values[1] + offset] for key, values in onsets.items()

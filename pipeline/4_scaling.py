@@ -28,7 +28,6 @@ for i, iparticipant in enumerate(participants):
         if imodel[:2] == "wu":
             # mass of the upper limb + torso
             mass = mass * WU_MASS_FACTOR
-            # TODO: mass scaling should be verified
 
         path_kwargs = {
             "model_input": f"{conf.project_path / '_models' / imodel}.osim",
@@ -40,4 +39,3 @@ for i, iparticipant in enumerate(participants):
         }
 
         Scale(**path_kwargs, mass=mass, height=height * 10, remove_unused=False)
-        # TODO: get total squared error + marker error + max

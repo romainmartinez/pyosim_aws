@@ -51,17 +51,20 @@ except FileNotFoundError:
 for iparticipant in participants:
     print(f"\nparticipant: {iparticipant}")
 
-    trials = list(
-        filter(
-            None,
-            [
-                ifile if ifile.stem not in blacklist else ""
-                for ifile in (
-                    conf.project_path / iparticipant / "1_inverse_kinematic"
-            ).glob("*.mot")
-            ],
-        )
-    )
+    already_processed = [
+        itrial.stem.replace("_MuscleAnalysis_Length", "")
+        for itrial in conf.project_path.glob("*/3_static_optimization/*.sto")
+    ]
+
+    trials = []
+    for ifile in (conf.project_path / iparticipant / "1_inverse_kinematic").glob(
+        "*.mot"
+    ):
+        if ifile.stem not in blacklist and ifile.stem not in already_processed:
+            trials.append(ifile)
+
+    if not trials:
+        continue
 
     for imodel in model_names:
         path_kwargs = {
@@ -72,7 +75,6 @@ for iparticipant in participants:
             "xml_actuators": f"{(conf.project_path / '_templates' / f'{imodel}_actuators.xml').resolve()}",
             "ext_forces_dir": f"{(conf.project_path / iparticipant / '0_forces').resolve()}",
             "sto_output": f"{(conf.project_path / iparticipant / '4_muscle_analysis').resolve()}",
-            # "enforce_analysis": True,
         }
 
         MuscleAnalysis(

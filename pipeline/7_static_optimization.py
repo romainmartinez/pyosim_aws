@@ -49,20 +49,25 @@ try:
 except FileNotFoundError:
     print(f"{verif_file} not found.")
 
-for i, iparticipant in enumerate(participants[3:]):
+for i, iparticipant in enumerate(participants[:]):
     print(f"\nparticipant #{i}: {iparticipant}")
 
-    trials = list(
-        filter(
-            None,
-            [
-                ifile if ifile.stem not in blacklist else ""
-                for ifile in (
-                    conf.project_path / iparticipant / "1_inverse_kinematic"
-                ).glob("*.mot")
-            ],
+    already_processed = [
+        itrial.stem.replace("_StaticOptimization_activation", "").replace(
+            "_StaticOptimization_force", ""
         )
-    )
+        for itrial in conf.project_path.glob("*/3_static_optimization/*.sto")
+    ]
+
+    trials = []
+    for ifile in (conf.project_path / iparticipant / "1_inverse_kinematic").glob(
+        "*.mot"
+    ):
+        if ifile.stem not in blacklist and ifile.stem not in already_processed:
+            trials.append(ifile)
+
+    if not trials:
+        continue
 
     for imodel in model_names:
         path_kwargs = {
