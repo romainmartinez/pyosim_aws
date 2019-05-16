@@ -47,7 +47,7 @@ try:
 except FileNotFoundError:
     print(f"{verif_file} not found.")
 
-for i, iparticipant in enumerate(participants[:]):
+for i, iparticipant in enumerate(participants):
     print(f"\nparticipant #{i}: {iparticipant}")
 
     trials = list(

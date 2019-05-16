@@ -19,8 +19,7 @@ offset = 0.05  # take .5 second before and after onsets
 
 # take only trials containing...
 subset = "H2"
-
-for i, iparticipant in enumerate(participants[:]):
+for i, iparticipant in enumerate(participants):
     print(f"\nparticipant #{i}: {iparticipant}")
 
     already_processed = [

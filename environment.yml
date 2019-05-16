@@ -6,6 +6,7 @@ channels:
 - conda-forge
 dependencies:
 - python
+- nb_conda_kernels
 - pyyaml
 - numpy
 - lapack
@@ -14,3 +15,6 @@ dependencies:
 - pyosim
 - pyoviz
 - altair
+- pip
+- pip:
+  - -e .

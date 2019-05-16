@@ -48,7 +48,7 @@ try:
 except FileNotFoundError:
     print(f"{verif_file} not found.")
 
-for iparticipant in participants:
+for iparticipant in participants[35:]:
     print(f"\nparticipant: {iparticipant}")
 
     already_processed = [
@@ -58,7 +58,7 @@ for iparticipant in participants:
 
     trials = []
     for ifile in (conf.project_path / iparticipant / "1_inverse_kinematic").glob(
-        "*.mot"
+            "*.mot"
     ):
         if ifile.stem not in blacklist and ifile.stem not in already_processed:
             trials.append(ifile)
@@ -84,4 +84,5 @@ for iparticipant in participants:
             low_pass=5,
             remove_empty_files=True,
             multi=True,
+            contains='FiberLength'
         )

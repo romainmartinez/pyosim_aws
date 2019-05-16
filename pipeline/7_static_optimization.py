@@ -38,7 +38,38 @@ blacklist = [
     "wu_GeoAH18H1_2",
     "wu_DavOH12H2_3",
     "wu_PatMH12H2_2",
+    # Fiber length is nan
+    "wu_IneAF12H2_3",
+    "wu_MarSF12H2_1",
+    "wu_BenLH6H2_2",
+    "wu_BenLH18H2_3",
+    "wu_BenLH6H2_3",
+    "wu_BenLH18H2_2",  # SRA2
+    "wu_BenLH6H2_1",  # SRA2
+    "wu_BenLH12H2_3",  # SRA2
+    "wu_BenLH18H2_1",  # SRA2
+    "wu_BenLH12H2_1",  # SRA2
+    "wu_BenLH12H2_2",  # SRA2
+    "wu_GatBH12H2_1",  # SRA2
+    "wu_GatBH6H2_2",  # SRA2
+    "wu_GatBH6H2_3",  # SRA2
+    "wu_GatBH12H2_2",  # SRA2
+    "wu_GatBH12H2_3",  # SRA2
+    "wu_GatBH18H2_1",  # SRA2
+    "wu_GatBH18H2_2",  # SRA2
+    "wu_GatBH18H2_3",  # SRA2
+    "wu_GatBH6H2_1",  # SRA2
+    "wu_YoaPH12H2_2",  # SRA2
+    "wu_PatMH6H2_2",  # SRA2
+    "wu_PatMH12H2_1",  # SRA2
+    "wu_PatMH12H2_3",  # SRA2
+    "wu_PatMH6H2_1",  # SRA2
+    "wu_PatMH6H2_3",  # SRA2
+    "wu_PatMH18H2_1",  # SRA2
+    "wu_PatMH18H2_2",  # SRA2
+    "wu_PatMH18H2_3",  # SRA2
 ]
+
 
 # append blacklist with verifications
 verif_file = conf.project_path / "verification.csv"
@@ -49,7 +80,7 @@ try:
 except FileNotFoundError:
     print(f"{verif_file} not found.")
 
-for i, iparticipant in enumerate(participants[:]):
+for i, iparticipant in enumerate(participants):
     print(f"\nparticipant #{i}: {iparticipant}")
 
     already_processed = [
@@ -79,7 +110,10 @@ for i, iparticipant in enumerate(participants[:]):
             "ext_forces_dir": f"{(conf.project_path / iparticipant / '0_forces').resolve()}",
             "sto_output": f"{(conf.project_path / iparticipant / '3_static_optimization').resolve()}",
         }
+        import time
 
+        start = time.time()
         StaticOptimization(
             **path_kwargs, mot_files=trials, prefix=imodel, low_pass=5, multi=False
         )
+        print(time.time() - start)
