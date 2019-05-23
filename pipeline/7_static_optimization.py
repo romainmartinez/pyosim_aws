@@ -68,6 +68,10 @@ blacklist = [
     "wu_PatMH18H2_1",  # SRA2
     "wu_PatMH18H2_2",  # SRA2
     "wu_PatMH18H2_3",  # SRA2
+    "wu_PhiIH18H2_2",  # SRA2
+    "wu_PhiIH6H2_3",  # SRA2
+    "wu_PhiIH18H2_3",  # SRA2
+    "wu_PhiIH12H2_2",  # SRA2
 ]
 
 

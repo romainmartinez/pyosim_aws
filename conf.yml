@@ -3,9 +3,11 @@ repo_info: >
   <img style="float: right; width: 100px" src="https://raw.github.com/pyomeca/design/master/logo/logo_cropped.svg?sanitize=true">
 
 
-  # Pyosim in the cloud
+  <font size="+2">Pyosim in the cloud</font>
 
-  ## with [pyomeca](https://github.com/pyomeca/pyomeca)
+
+  <font size="+1">with [pyomeca](https://github.com/pyomeca/pyom</font>a)
+
 
   Romain Martinez (martinez.staps@gmail.com | [GitHub](https://github.com/romainmartinez))
 

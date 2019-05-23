@@ -11,7 +11,8 @@ def parse_conditions(df, filename_col="filename", prefix="", suffix=""):
         participant=lambda x: x[filename_col].str[:4].str.lower().astype("category"),
         men=lambda x: x[filename_col].str[4].replace({"H": 1, "F": 0, "M": 1}),
         height=lambda x: x[filename_col].str[-3].astype(int),
-        weight=lambda x: x[filename_col].str[5:].str.split("H").str[0].astype(int),
+
+        mass=lambda x: x[filename_col].str[5:].str.split("H").str[0].astype(int),
         n_trial=lambda x: x[filename_col].str[-1].astype(int),
     )
 
@@ -21,7 +22,7 @@ def condition_counter(d):
     d = d.drop_duplicates("filename")
     print(f"n. participants: {d['participant'].nunique()}")
     print(lines)
-    cols = ["participant", "men", "height", "weight", ["men", "weight"]]
+    cols = ["men", "height", "mass", ["men", "mass"]]
     for icol in cols:
         print(d.groupby(icol).size().to_string())
         print(lines)

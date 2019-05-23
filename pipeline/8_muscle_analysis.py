@@ -48,7 +48,7 @@ try:
 except FileNotFoundError:
     print(f"{verif_file} not found.")
 
-for iparticipant in participants[35:]:
+for iparticipant in participants[34:]:
     print(f"\nparticipant: {iparticipant}")
 
     already_processed = [
@@ -84,5 +84,5 @@ for iparticipant in participants[35:]:
             low_pass=5,
             remove_empty_files=True,
             multi=True,
-            contains='FiberLength'
+            contains='_FiberVelocity'
         )

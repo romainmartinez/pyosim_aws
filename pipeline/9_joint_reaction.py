@@ -18,11 +18,14 @@ for iparticipant in participants:
     print(f"\nparticipant: {iparticipant}")
 
     trials = [
-        ifile
-        for ifile in (conf.project_path / iparticipant / "1_inverse_kinematic").glob(
-            "*.mot"
+        f'{ifile}'.replace('3_static_optimization', '1_inverse_kinematic').replace('_StaticOptimization_force.sto', '.mot')
+        for ifile in (conf.project_path / iparticipant / "3_static_optimization").glob(
+            "*_StaticOptimization_force.sto"
         )
     ]
+
+    if not trials:
+        continue
 
     for imodel in model_names:
         path_kwargs = {
@@ -32,7 +35,6 @@ for iparticipant in participants:
             "xml_actuators": f"{(conf.project_path / '_templates' / f'{imodel}_actuators.xml').resolve()}",
             "muscle_forces_dir": f"{(conf.project_path / iparticipant / '3_static_optimization').resolve()}",
             "sto_output": f"{(conf.project_path / iparticipant / '5_joint_reaction_force').resolve()}",
-            # "enforce_analysis": True,
         }
 
         JointReaction(
