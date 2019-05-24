@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-
+import altair as alt
 
 def parse_conditions(df, filename_col="filename", prefix="", suffix=""):
     return df.assign(
@@ -28,15 +28,16 @@ def condition_counter(d):
         print(lines)
 
 
-def random_balanced_design(d, params, random_state):
-    g = d.drop_duplicates("filename").groupby(params)
+def random_balanced_design(d, params, random_state, participant=False):
+    output_cols = ["filename", "participant"] if participant else ["filename"]
+    g = d.drop_duplicates(output_cols).groupby(params)
     minimum = g.size().min()
     return pd.concat(
         [
-            igroupby.sample(minimum, random_state=random_state)["filename"]
+            igroupby.sample(minimum, random_state=random_state)[output_cols]
             for idx, igroupby in g
         ]
-    ).to_list()
+    )
 
 
 def get_spm_cluster(spm, labels=None, mult=1):
@@ -55,3 +56,39 @@ def get_spm_cluster(spm, labels=None, mult=1):
                 )
             )
     return pd.concat(out, axis=1).T.assign(effect=lambda x: x["effect"].replace(labels))
+
+def ridge_plot(d, value, groupby, step=30, overlap=0.8, sort=None):
+    return (
+        alt.Chart(d)
+        .transform_joinaggregate(mean_value=f"mean({value})", groupby=[groupby])
+        .transform_bin(["bin_max", "bin_min"], value)
+        .transform_aggregate(
+            value="count()", groupby=[groupby, "mean_value", "bin_min", "bin_max"]
+        )
+        .transform_impute(
+            impute="value", groupby=[groupby, "mean_value"], key="bin_min", value=0
+        )
+        .mark_area(
+            interpolate="monotone", fillOpacity=0.8, stroke="lightgray", strokeWidth=0.5
+        )
+        .encode(
+            alt.X("bin_min:Q", bin="binned", title=value),
+            alt.Y("value:Q", scale=alt.Scale(range=[step, -step * overlap]), axis=None),
+            alt.Fill(
+                "mean_value:Q",
+                legend=None,
+                scale=alt.Scale(
+                    domain=[d[value].max(), d[value].min()], scheme="redyellowblue"
+                ),
+            ),
+            alt.Row(
+                f"{groupby}:N",
+                title=None,
+                sort=alt.SortArray(sort) if sort else None,
+                header=alt.Header(labelAngle=0, labelAlign="right", format="%B"),
+            ),
+        )
+        .properties(bounds="flush", height=step)
+#         .configure_facet(spacing=0)
+#         .configure_view(stroke=None)
+    )
