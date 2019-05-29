@@ -2,8 +2,8 @@
 name: pyosim_aws
 channels:
 - defaults
-- pyomeca
 - conda-forge
+- pyomeca
 dependencies:
 - python
 - nb_conda_kernels

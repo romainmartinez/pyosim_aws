@@ -89,6 +89,6 @@ def ridge_plot(d, value, groupby, step=30, overlap=0.8, sort=None):
             ),
         )
         .properties(bounds="flush", height=step)
-#         .configure_facet(spacing=0)
-#         .configure_view(stroke=None)
+        .configure_facet(spacing=0)
+        .configure_view(stroke=None)
     )
