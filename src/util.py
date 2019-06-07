@@ -72,7 +72,7 @@ def ridge_plot(d, value, groupby, step=30, overlap=0.8, sort=None):
             interpolate="monotone", fillOpacity=0.8, stroke="lightgray", strokeWidth=0.5
         )
         .encode(
-            alt.X("bin_min:Q", bin="binned", title=value),
+            alt.X("bin_min:Q", bin="binned", title='activation', axis=alt.Axis(format='%', labelFlush=False)),
             alt.Y("value:Q", scale=alt.Scale(range=[step, -step * overlap]), axis=None),
             alt.Fill(
                 "mean_value:Q",
