@@ -17,9 +17,9 @@ def parse_conditions(df, filename_col="filename", prefix="", suffix=""):
     )
 
 
-def condition_counter(d):
+def condition_counter(d, drop_on='filename'):
     lines = "-" * 10
-    d = d.drop_duplicates("filename")
+    d = d.drop_duplicates(drop_on)
     print(f"n. participants: {d['participant'].nunique()}")
     print(lines)
     cols = ["men", "height", "mass", ["men", "mass"]]
@@ -28,7 +28,7 @@ def condition_counter(d):
         print(lines)
 
 
-def random_balanced_design(d, params, random_state, participant=False):
+def random_balanced_design(d, params, random_state, participant=False, trial=False):
     output_cols = ["filename", "participant"] if participant else ["filename"]
     g = d.drop_duplicates(output_cols).groupby(params)
     minimum = g.size().min()
