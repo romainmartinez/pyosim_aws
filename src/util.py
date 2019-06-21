@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import numpy as np
 import altair as alt
 
 def parse_conditions(df, filename_col="filename", prefix="", suffix=""):
@@ -92,3 +93,60 @@ def ridge_plot(d, value, groupby, step=30, overlap=0.8, sort=None):
         .configure_facet(spacing=0)
         .configure_view(stroke=None)
     )
+
+def cohend(a, b):
+    d = (a.mean() - b.mean()) / (np.sqrt((a.std() ** 2 + b.std() ** 2) / 2))
+    if np.abs(d) >= 0.8:
+        effect = "large"
+    elif np.abs(d) >= 0.5:
+        effect = "medium"
+    elif np.abs(d) >= 0.2:
+        effect = "small"
+    else:
+        effect = "no"
+    return d, effect
+
+
+def describe_clusters(
+    clusters,
+    data,
+    effect,
+    round=["mean diff", "cohen d"],
+):
+    c = clusters.assign(
+        **{i: pd.to_numeric(clusters[i]) for i in ["p", "start", "end"]}
+    )
+    c[["start", "end"]] = c[["start", "end"]].round(2)
+
+    previous_end = {value: None for key, value in effect.items()}
+    for i, icluster in c.iterrows():
+        if icluster["end"] - icluster["start"] < 0.05:
+            c = c.drop(i, axis="index")
+            continue
+
+        s = (
+            previous_end
+            if previous_end[effect[icluster["effect"]]]
+            and icluster["start"] - previous_end[effect[icluster["effect"]]] < 0.05
+            else icluster["start"]
+        )
+        e = icluster["end"]
+        a, b = [
+            i.values
+            for _, i in data.query("@s < index < @e").groupby(
+                effect[icluster["effect"]]
+            )["value"]
+        ]
+        columns = data[effect[icluster["effect"]]].unique()
+
+        c.loc[i, "diff desc"] = f"{columns[0]} - {columns[1]}"
+        c.loc[i, "mean diff"] = a.mean() - b.mean()
+        cohen_d, cohen_effect = cohend(a, b)
+        c.loc[i, "cohen d"] = cohen_d
+        c.loc[i, "cohen effect"] = cohen_effect
+
+        previous_end[effect[icluster["effect"]]] = e
+
+    if round:
+        c[round] = c[round].round(2)
+    return c
