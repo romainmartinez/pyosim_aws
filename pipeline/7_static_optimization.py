@@ -38,7 +38,6 @@ blacklist = [
     "wu_GeoAH18H1_2",
     "wu_DavOH12H2_3",
     "wu_PatMH12H2_2",
-    # Fiber length is nan
     "wu_IneAF12H2_3",
     "wu_MarSF12H2_1",
     "wu_BenLH6H2_2",
@@ -72,6 +71,75 @@ blacklist = [
     "wu_PhiIH6H2_3",  # SRA2
     "wu_PhiIH18H2_3",  # SRA2
     "wu_PhiIH12H2_2",  # SRA2
+    "wu_BenLH12H4_3",  # SRA2
+    "wu_BenLH18H4_2",  # SRA2
+    "wu_BenLH6H4_1",  # SRA2
+    "wu_BenLH6H1_3",  # SRA2
+    "wu_BenLH6H1_1",  # SRA2
+    "wu_BenLH18H4_3",  # SRA2
+    "wu_BenLH18H6_1",  # SRA2
+    "wu_BenLH12H4_1",  # SRA2
+    "wu_BenLH6H4_2",  # SRA2
+    "wu_BenLH6H6_2",  # SRA2
+    "wu_BenLH6H5_1",  # SRA2
+    "wu_BenLH18H6_2",  # SRA2
+    "wu_BenLH6H4_3",  # SRA2
+    "wu_BenLH6H3_3",  # SRA2
+    "wu_BenLH6H1_2",  # SRA2
+    "wu_BenLH6H3_2",  # SRA2
+    "wu_BenLH6H3_1",  # SRA2
+    "wu_BenLH6H6_3",  # SRA2
+    "wu_BenLH6H6_1",  # SRA2
+    "wu_BenLH6H5_2",  # SRA2
+    "wu_BenLH12H6_2",  # SRA2
+    "wu_BenLH6H5_3",  # SRA2
+    "wu_BenLH12H6_3",  # SRA2
+    "wu_BenLH18H6_3",  # SRA2
+    "wu_GatBH6H5_3",  # SRA2
+    "wu_GatBH6H6_3",  # SRA2
+    "wu_GatBH6H6_2",  # SRA2
+    "wu_GatBH6H3_2",  # SRA2
+    "wu_GatBH18H6_1",  # SRA2
+    "wu_GatBH12H6_3",  # SRA2
+    "wu_GatBH6H4_3",  # SRA2
+    "wu_GatBH6H5_2",  # SRA2
+    "wu_GatBH12H6_1",  # SRA2
+    "wu_GatBH6H4_2",  # SRA2
+    "wu_GatBH6H3_1",  # SRA2
+    "wu_GatBH18H4_2",  # SRA2
+    "wu_GatBH18H6_3",  # SRA2
+    "wu_GatBH12H4_1",  # SRA2
+    "wu_GatBH6H5_1",  # SRA2
+    "wu_GatBH12H4_3",  # SRA2
+    "wu_GatBH6H1_1",  # SRA2
+    "wu_GatBH6H4_1",  # SRA2
+    "wu_GatBH18H4_1",  # SRA2
+    "wu_GatBH6H6_1",  # SRA2
+    "wu_GatBH18H4_3",  # SRA2
+    "wu_GatBH6H3_3",  # SRA2
+    "wu_GatBH12H4_2",  # SRA2
+    "wu_GatBH6H1_3",  # SRA2
+    "wu_GatBH6H1_2",  # SRA2
+    "wu_YoaPH6H5_1",  # SRA2
+    "wu_RomMH12H4_2",  # SRA2
+    "wu_PatMH12H4_2",  # SRA2
+    "wu_PatMH6H3_3",  # SRA2
+    "wu_PatMH6H5_1",  # SRA2
+    "wu_PatMH6H3_1",  # SRA2
+    "wu_PatMH6H1_1",  # SRA2
+    "wu_PatMH6H5_3",  # SRA2
+    "wu_PatMH6H1_3",  # SRA2
+    "wu_PatMH6H5_2",  # SRA2
+    "wu_PatMH6H1_2",  # SRA2
+    "wu_PhiIH6H5_3",  # SRA2
+    "wu_PhiIH6H1_2",  # SRA2
+    "wu_PhiIH6H6_3",  # SRA2
+    "wu_PatMH6H3_2",  # SRA2
+    "wu_GabFH12H6_1",  # SRA2
+    "wu_SteBF12H6_2",  # SRA2
+    "wu_GeoAH6H3_2",  # SRA2
+    "wu_GeoAH18H4_1",  # SRA2
+    "wu_GeoAH6H3_1",  # SRA2
 ]
 
 

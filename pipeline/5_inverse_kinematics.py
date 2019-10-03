@@ -18,7 +18,7 @@ model_names = ["wu"]
 offset = 0.05  # take .5 second before and after onsets
 
 # take only trials containing...
-subset = "H2"
+subset = ["H2", "H4", "H6"]
 for i, iparticipant in enumerate(participants):
     print(f"\nparticipant #{i}: {iparticipant}")
 
@@ -28,11 +28,12 @@ for i, iparticipant in enumerate(participants):
 
     trials = []
     for ifile in (conf.project_path / iparticipant / "0_markers").glob("*.trc"):
-        if (
-            subset in ifile.stem
-            and f"{model_names[0]}_{ifile.stem}" not in already_processed
-        ):
-            trials.append(ifile)
+        for isubset in subset:
+            if (
+                isubset in ifile.stem
+                and f"{model_names[0]}_{ifile.stem}" not in already_processed
+            ):
+                trials.append(ifile)
 
     if not trials:
         continue

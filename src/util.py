@@ -7,9 +7,8 @@ def parse_conditions(df, filename_col="filename", prefix="", suffix=""):
     return df.assign(
         filename=lambda x: x[filename_col]
         .str.replace(prefix, "")
-        .str.replace(suffix, "")
-        .astype("category"),
-        participant=lambda x: x[filename_col].str[:4].str.lower().astype("category"),
+        .str.replace(suffix, ""),
+        participant=lambda x: x[filename_col].str[:4].str.lower(),
         men=lambda x: x[filename_col].str[4].replace({"H": 1, "F": 0, "M": 1}),
         height=lambda x: x[filename_col].str[-3].astype(int),
 
@@ -125,7 +124,7 @@ def describe_clusters(
             continue
 
         s = (
-            previous_end
+            previous_end[effect[icluster["effect"]]]
             if previous_end[effect[icluster["effect"]]]
             and icluster["start"] - previous_end[effect[icluster["effect"]]] < 0.05
             else icluster["start"]
