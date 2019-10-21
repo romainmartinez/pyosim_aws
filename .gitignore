@@ -16,7 +16,6 @@ eggs/
 .eggs/
 lib/
 lib64/
-parts/
 sdist/
 var/
 wheels/
@@ -105,10 +104,3 @@ venv.bak/
 
 .idea
 notebooks/altair*
-!/paper/main.blg
-!/paper/main.bbl
-!/paper/main.spl
-!/paper/main.pdf
-!/paper/main.synctex.gz
-!/paper/main.aux
-!/paper/main.log
