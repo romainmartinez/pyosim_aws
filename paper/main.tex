@@ -1,0 +1,109 @@
+% \documentclass[preprint,12pt]{elsarticle}
+\documentclass[preprint,review,12pt]{elsarticle}
+% \documentclass[final,1p,times]{elsarticle}
+%% \documentclass[final,1p,times,twocolumn]{elsarticle}
+% \documentclass[final,3p,times]{elsarticle}
+%% \documentclass[final,3p,times,twocolumn]{elsarticle}
+% \documentclass[final,5p,times]{elsarticle}
+% \documentclass[final,5p,times,twocolumn]{elsarticle}
+
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{lineno}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{natbib}
+
+\journal{Applied Ergonomics}
+
+\begin{document}
+
+    \begin{frontmatter}
+
+        \title{Sex differences in upper limb musculoskeletal biomechanics during a lifting task}
+
+        %% use the tnoteref command within \title for footnotes;
+        %% use the tnotetext command for the associated footnote;
+        %% use the fnref command within \author or \address for footnotes;
+        %% use the fntext command for the associated footnote;
+        %% use the corref command within \author for corresponding author footnotes;
+        %% use the cortext command for the associated footnote;
+        %% use the ead command for the email address,
+        %% and the form \ead[url] for the home page:
+        %%
+        %% \title{Title\tnoteref{label1}}
+        %% \tnotetext[label1]{}
+        %% \author{Name\corref{cor1}\fnref{label2}}
+        %% \ead{email address}
+        %% \ead[url]{home page}
+        %% \fntext[label2]{}
+        %% \cortext[cor1]{}
+        %% \address{Address\fnref{label3}}
+        %% \fntext[label3]{}
+
+
+        \author{Martinez Romain}
+        \author{Assila Najoua}
+        \author{Goubault Etienne}
+        \author{Begon Mickaël}
+
+        \address{School of Kinesiology and Exercise Science, Faculty of Medicine, University of Montreal}
+
+        \begin{abstract}
+            %% Text of abstract
+            Women experience higher prevalence of work-related upper limb musculoskeletal disorders compared to men.
+            Previous studies have investigated the biological, kinematic and electromyographic sex-related differences during a lifting task but the actual differences in musculoskeletal loads remain unknown.
+            We investigated the sex differences in three musculoskeletal indicators: the sum of muscle activations, the sum of muscle forces and the relative time spent beyond a shear-compression dislocation ratio.
+            A musculoskeletal model was scaled on 20 women and 20 men lifting a 6 or 12~kg box from hip to eye level.
+            Women generated more muscle forces and activations than men, regardless of the lifted mass.
+            Those differences occurred when the box was above shoulder level.
+            In addition, women spent more time beyond a shear-compression dislocation ratio.
+            Our work suggests higher musculoskeletal loads among women compared to men during a lifting task, which could be the result of poor technique and strength difference.
+        \end{abstract}
+
+        \begin{keyword}
+            sex differences \sep upper limb \sep musculoskeletal modeling
+            %% keywords here, in the form: keyword \sep keyword
+
+            %% MSC codes here, in the form: \MSC code \sep code
+            %% or \MSC[2008] code \sep code (2000 is the default)
+
+        \end{keyword}
+
+    \end{frontmatter}
+
+    %%
+    %% Start line numbering here if you want
+    %%
+    \linenumbers
+
+    %% main text
+    \section{Introduction}
+    \label{sec:introduction}
+    \input{parts/1-introduction}
+
+    \section{Materials and methods}
+    \label{sec:materials-and-methods}
+    \input{parts/2-materials-and-methods}
+
+    \section{Results}
+    \label{sec:results}
+    \input{parts/3-results}
+
+    \section{Discussion}
+    \label{sec:discussion}
+    \input{parts/4-discussion}
+
+    \section{Acknowledgements}
+    \label{sec:acknowledgements}
+
+    The study was financially supported by the Institut de Recherche Robert-Sauvé en Santé et Sécurité du Travail [\# 2014--0045].
+    The authors would like to thank the workers who participated as well as Marjolaine Corbeil, Landry Desmoulins and Damien Leflem for their contribution during the data collection and data labelling.
+
+    \appendix
+    \input{parts/5-appendix}
+
+    \bibliographystyle{elsarticle-num-names}
+    \bibliography{ref}
+
+\end{document}
