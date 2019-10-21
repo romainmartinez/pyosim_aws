@@ -13,10 +13,15 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{natbib}
+\usepackage{float}
 
 \journal{Applied Ergonomics}
 
 \begin{document}
+
+    % TODO
+    %  - cover letter
+    %  - fig
 
     \begin{frontmatter}
 
@@ -41,16 +46,18 @@
         %% \address{Address\fnref{label3}}
         %% \fntext[label3]{}
 
+        \author[1]{Martinez Romain\corref{cor1}}
+        \ead{martinez.staps@gmail.com}
+        \author[1]{Assila Najoua}
+        \author[1]{Goubault Etienne}
+        \author[1]{Begon Mickaël}
 
-        \author{Martinez Romain}
-        \author{Assila Najoua}
-        \author{Goubault Etienne}
-        \author{Begon Mickaël}
+        \address[1]{School of Kinesiology and Exercise Science, Faculty of Medicine, University of Montreal}
 
-        \address{School of Kinesiology and Exercise Science, Faculty of Medicine, University of Montreal}
+        \cortext[cor1]{corresponding author.}
+
 
         \begin{abstract}
-            %% Text of abstract
             Women experience higher prevalence of work-related upper limb musculoskeletal disorders compared to men.
             Previous studies have investigated the biological, kinematic and electromyographic sex-related differences during a lifting task but the actual differences in musculoskeletal loads remain unknown.
             We investigated the sex differences in three musculoskeletal indicators: the sum of muscle activations, the sum of muscle forces and the relative time spent beyond a shear-compression dislocation ratio.
@@ -63,39 +70,31 @@
 
         \begin{keyword}
             sex differences \sep upper limb \sep musculoskeletal modeling
-            %% keywords here, in the form: keyword \sep keyword
-
-            %% MSC codes here, in the form: \MSC code \sep code
-            %% or \MSC[2008] code \sep code (2000 is the default)
-
         \end{keyword}
 
     \end{frontmatter}
 
-    %%
-    %% Start line numbering here if you want
-    %%
-    \linenumbers
+    \section{Highlights}\label{sec:highlights}
+    \begin{itemize}
+        \item We investigated sex differences in upper limb musculoskeletal biomechanics during a lifting task.
+        \item Women generated higher muscle forces and muscle activations when the box was above shoulder level and spent more time beyond a shear-compression dislocation ratio.
+        \item Those musculoskeletal indicators can be used to evaluate work technique and estimate the underlying musculoskeletal loads.
+    \end{itemize}
 
-    %% main text
-    \section{Introduction}
-    \label{sec:introduction}
+
+    \section{Introduction}\label{sec:introduction}
     \input{parts/1-introduction}
 
-    \section{Materials and methods}
-    \label{sec:materials-and-methods}
+    \section{Materials and methods}\label{sec:materials-and-methods}
     \input{parts/2-materials-and-methods}
 
-    \section{Results}
-    \label{sec:results}
+    \section{Results}\label{sec:results}
     \input{parts/3-results}
 
-    \section{Discussion}
-    \label{sec:discussion}
+    \section{Discussion}\label{sec:discussion}
     \input{parts/4-discussion}
 
-    \section{Acknowledgements}
-    \label{sec:acknowledgements}
+    \section{Acknowledgements}\label{sec:acknowledgements}
 
     The study was financially supported by the Institut de Recherche Robert-Sauvé en Santé et Sécurité du Travail [\# 2014--0045].
     The authors would like to thank the workers who participated as well as Marjolaine Corbeil, Landry Desmoulins and Damien Leflem for their contribution during the data collection and data labelling.
