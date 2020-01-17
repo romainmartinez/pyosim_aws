@@ -145,7 +145,8 @@ def describe_clusters(
         c.loc[i, "cohen effect"] = cohen_effect
 
         previous_end[effect[icluster["effect"]]] = e
-
+    if c.empty:
+        return pd.DataFrame()
     if round:
         c[round] = c[round].round(2)
     return c
