@@ -1,0 +1,19 @@
+\usepackage[strict]{changepage}
+%\usepackage{xcolor}
+\usepackage{framed}
+\definecolor{formalshade}{rgb}{0.95,0.95,1}
+\newenvironment{formal}{%
+    \def\FrameCommand{%
+        \hspace{1pt}%
+        {\color{black}\vrule width 2pt}%
+        {\color{formalshade}\vrule width 4pt}%
+        \colorbox{formalshade}%
+    }%
+    \MakeFramed{\advance\hsize-\width\FrameRestore}%
+    \noindent\hspace{-4.55pt}% disable indenting first paragraph
+    \begin{adjustwidth}{}{7pt}%
+        \vspace{2pt}\vspace{2pt}%
+}
+{%
+    \vspace{2pt}\end{adjustwidth}\endMakeFramed%
+}
