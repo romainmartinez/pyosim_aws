@@ -15,7 +15,7 @@ dependencies:
 - pyoviz
 - altair
 - nb_black
+- spm1d
 - pip
 - pip:
   - -e .
-  - spm1d
